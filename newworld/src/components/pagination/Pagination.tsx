@@ -7,10 +7,10 @@ export default function Pagination({ data, updatePage }: { data: pagination, upd
 
     return (
         <div className="text-center">
-            <span className="jaama-panel pagination-bar">
+            <span className="join">
                 {data != null && buttons.map((buttonId, i) => {
-                    const active = i == data.pageId ? { backgroundColor: "#ade8f3" } : {};
-                    return (<span key={ i } style={active} className="pagination-button px-5 py-1.5" onClick={() => updatePage(i)} >
+                    const active = i == data.pageId ? "btn-primary" : "";
+                    return (<span key={i} className={"join-item btn " + active} onClick={() => updatePage(i)} >
                             {buttonId + 1}
                         </span>);
                     })

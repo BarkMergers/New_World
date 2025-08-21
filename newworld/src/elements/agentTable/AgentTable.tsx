@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { SafeFetchJson, GET } from '../../helpers/fetch';
 import type { AgentFilterOptions } from '../../models/AgentFilterOptions';
 import type { AgentFilterValues } from '../../models/AgentFilterValues';
-import ColumnEditor from '../columEditor/ColumnEditor';
+import ColumnEditor, { OpenColumnEditor } from '../columEditor/ColumnEditor';
 import type { ColumnData } from '../../models/ColumnData';
 import type { Agent } from '../../models/Agent';
 import Modal from '../../components/modal/Modal';
@@ -56,13 +56,9 @@ export default function AgentTable() {
     }];
 
     const [data, setData] = useState<Agent[]>(rawData);
-
-    const showSelector = true;
-    const showDetail = true;
-
     const globalData: GlobalData = useContext(UserContext);
 
-    const updater = (value: boolean, index: number) => {
+    const onSelect = (value: boolean, index: number) => {
         setData(prevItems =>
             prevItems.map((item, i) => ((i == index || index == -1) ? { ...item, selected: value } : item))
         );
@@ -145,9 +141,7 @@ export default function AgentTable() {
         ]
     }
     const [columnData, setColumnData] = useState<ColumnData[]>(loadData());
-    const getHeader = () => {
-        return columnData != null && columnData.map((column: ColumnData) => { return column.active && <td>{column.text}</td> });
-    }
+
     useEffect(() => {
         if (columnData == null) {
             localStorage.removeItem("liststructure_myaccounts");
@@ -178,10 +172,7 @@ export default function AgentTable() {
 
 
 
-    const openEditor = () => {
-        const dialog = document.getElementById('dialog_tableEditor') as HTMLDialogElement;
-        dialog.showModal();
-    }
+
 
 
 
@@ -195,19 +186,12 @@ export default function AgentTable() {
 
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
+            <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
 
-
-
-            <TableFilter openEditor={openEditor} applyFilter={applyFilter} filterData={filterOptions}></TableFilter>
-
-
-
-
-
-            <Table tableData={data} selector={showSelector} detail={showDetail} header={getHeader()} updater={updater}>
+            <Table tableData={data} columnData={columnData} onSelect={onSelect} onDetailClick={detailClick}>
                 {
                     data.map((item: Agent, index: number) =>
-                        <TableRow selector={showSelector} updater={updater} detail={showDetail} selected={item.selected} index={index} detailClick={detailClick}>
+                        <TableRow index={index} selected={item.selected} onSelect={onSelect} onDetailClick={detailClick}>
                             {columnData != null && columnData.map((column: ColumnData) => {
                                 if (column.active)
                                     return <td>{item[column.name as keyof typeof item]}</td>

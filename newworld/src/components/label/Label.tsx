@@ -5,8 +5,8 @@ export default function Label({ children, title }: { children: ReactNode, title:
     return (
         <>
             <fieldset className="fieldset label-container">
-                <legend className="fieldset-legend text-left text-black">{title}</legend>
-                <span className="input label-style text-left text-black" >{children}</span>
+                <legend className="fieldset-legend text-left">{title}</legend>
+                <span className="input label-style text-left" >{children}</span>
             </fieldset>
         </>
     );

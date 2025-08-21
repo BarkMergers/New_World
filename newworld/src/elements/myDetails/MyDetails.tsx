@@ -11,6 +11,7 @@ import Modal from '../../components/modal/Modal';
 import { SafeFetchJson, GET, SafeFetch, POST } from '../../helpers/fetch';
 import type { Agent } from '../../models/Agent';
 import type { AccountInfo } from "@azure/msal-browser";
+import Select from '../../components/select/Select';
 
 export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
 
@@ -56,7 +57,7 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
         setData({ ...data, [field]: value });
     }
 
-    //const roleList = ["Admin", "Comms", "Dev", "Agent"];
+    const jobList = ["Admin", "Comms", "Dev", "Agent"];
 
     return (
         <>
@@ -65,7 +66,7 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
             </Modal>
 
             <form onSubmit={handleSubmit} className="mx-auto my-10">
-                <fieldset className="jaama-panel fieldset bg-base-200 border-base-300 rounded-box w-xs p-4">
+                <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs p-4">
          
                     <h1>My Details...</h1>
          
@@ -76,7 +77,7 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
                             <div>
                                 <Input value={data?.color || ""} type="text" title="Color" placeholder="Your favorite colour" onChange={(e) => updateData('color', e.target.value)} />
 
-                                <Input value={data?.job || ""} type="text" title="Job" placeholder="Your job" onChange={(e) => updateData('job', e.target.value)} />
+                                <Select value={data?.job || ""} data={jobList} title="Job" onChange={(e) => updateData('job', e.target.value)} />
 
                                 <Input value={data?.name || ""} type="text" title="Name" placeholder="Your name" onChange={(e) => updateData('name', e.target.value)} />
 

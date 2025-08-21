@@ -4,8 +4,8 @@
     return (
         <>
             <fieldset className="fieldset">
-                <legend className="fieldset-legend text-left text-black">{title}</legend>
-                <input type="checkbox" checked={value} className="h-10 w-10 rounded-xl border-gray-400 bg-transparent text-black" onChange={onChange} />
+                <legend className="fieldset-legend text-left">{title}</legend>
+                <input type="checkbox" checked={value} className="h-10 w-10" onChange={onChange} />
             </fieldset>
         </>
     );

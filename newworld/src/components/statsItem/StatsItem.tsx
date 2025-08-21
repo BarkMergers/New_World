@@ -3,7 +3,7 @@
 export default function StatsItem({ children, title, footer, bodyClass = "", icon }:
     { children: ReactNode, title: string, footer: string, bodyClass?: string, icon?: ReactNode }) {
     return (
-        <>
+        <div className="jaama-stats-item">
             <div className="inline-block text-left align-middle">
                 <div className="text-xs">{title}</div>
                 <div className={bodyClass + " text-2xl"}>{children}</div>
@@ -12,6 +12,6 @@ export default function StatsItem({ children, title, footer, bodyClass = "", ico
             <div className="inline-block ps-2 text-left align-middle">
                 {icon}
             </div>
-        </>
+        </div>
     )
 }

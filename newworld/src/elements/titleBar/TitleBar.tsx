@@ -5,31 +5,24 @@ import React from "react";
 
 export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
 
-
     const setTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
         document.body.setAttribute("data-theme", e.target.value);
     }
 
-
     return (
-        <div class="card card-border bg-base-200 text-base-content my-1">
-            <div class="card-body p-1 flex-row items-center">
+        <div className="card card-border bg-base-200 text-base-content my-1">
+            <div className="card-body flex-row items-center px-5 py-1">
 
                 <span className="grow text-left">
                     {title}
                 </span>
 
                 <span>
-
-                    <div class="flex items-center gap-2 select ps-0">
+                    <div className="select flex items-center gap-2 ps-0">
 
                         <FaPaintBrush className="h-5 w-[18px] min-w-[36px] text-current" />
 
-           
-
-                        <select onChange={setTheme}
-                            className="text-base-content border-none focus:ring-0 focus:outline-none"
-                        >
+                        <select onChange={setTheme} className="text-base-content border-none focus:ring-0 focus:outline-none">
                             <option>light</option>
                             <option>dark</option>
                             <option>acid</option>
@@ -37,8 +30,6 @@ export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
                             <option>cupcake</option>
                         </select>
                     </div>
-
-
                 </span>
 
                 <span>
@@ -48,11 +39,7 @@ export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
                     </div>
                 </span>
 
-
-
                 <Avatar size={2.5}></Avatar>
-
-
 
             </div>
         </div>

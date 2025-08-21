@@ -3,14 +3,14 @@ import { ReactSortable } from "react-sortablejs";
 import { FaGripVertical } from 'react-icons/fa'; // Font Awesome
 import type { ColumnData } from '../../models/ColumnData';
 
-
-
+export function OpenColumnEditor() {
+    const dialog = document.getElementById('dialog_tableEditor') as HTMLDialogElement;
+    dialog.showModal();
+}
 
 export default function ColumnEditor({ columnData, setColumnData, resetColumnData }:
     { columnData: ColumnData[], setColumnData: React.Dispatch<React.SetStateAction<ColumnData[]>>, resetColumnData: () => ColumnData[] }) {
     const modalRef = useRef(null);
-
-
 
     const setColumnActive = (index: number, isActive:boolean) => {
         setColumnData(prev =>
@@ -32,7 +32,7 @@ export default function ColumnEditor({ columnData, setColumnData, resetColumnDat
                 { columnData != null && 
                     <ReactSortable list={columnData} setList={(list: ColumnData[]) => setColumnData(list)} >
                         {columnData.map((column, i: number) => (
-                            <div key={column.name} className="m-1 flex items-center rounded bg-gray-200 p-1 text-black hover:bg-blue-700">
+                            <div key={column.name} className="bg-base-900 m-1 flex items-center rounded p-1">
                                 <input style={{ height: "20px", width: "20px" }} onChange={(e) => setColumnActive(i, e.target.checked)} name={"vis_" + column.name} checked={column.active} type="checkbox" />
                                 <span className="flex-grow px-2 text-left">{column.text}</span>
                                 <FaGripVertical style={{ cursor: "ns-resize"}} />

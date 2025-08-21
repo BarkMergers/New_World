@@ -4,26 +4,24 @@ import TableRow from '../../components/tableRow/TableRow';
 import Pagination from '../../components/pagination/Pagination';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { POST, SafeFetchJson } from '../../helpers/fetch';
+import { POST, GET, SafeFetchJson } from '../../helpers/fetch';
 import type { pagination } from '../../models/Pagination';
 
-//import type { CustomerFilterOptions } from '../../models/CustomerFilterOptions';
-//import type { CustomerFilterValues } from '../../models/CustomerFilterValues';
+import type { CustomerFilterOptions } from '../../models/CustomerFilterOptions';
+import type { CustomerFilterValues } from '../../models/CustomerFilterValues';
 
 
 import { useContext } from "react";
 import type { GlobalData } from '../../models/GlobalData';
 import { UserContext } from '../../helpers/globalData';
 import type { ColumnData } from '../../models/ColumnData';
-import ColumnEditor from '../columEditor/ColumnEditor';
+import ColumnEditor, { OpenColumnEditor } from '../columEditor/ColumnEditor';
 import NumberPlate from '../../components/numberPlate/NumberPlate';
-//import TableFilter from '../tableFilter/TableFilter';
+import TableFilter from '../tableFilter/TableFilter';
 
 
 export default function CustomerTable() {
 
-    const showSelector = false;
-    const showDetail = true;
     const pageSize = 3;
     const [customerData, setCustomerData] = useState<Customer[]>([]);
     const [pageIndex, setPageIndex] = useState(0);
@@ -53,7 +51,7 @@ export default function CustomerTable() {
     const loadCustomerData = async (newPageIndex: number) => {
         newPageIndex = newPageIndex || 0;
         globalData.SetSpinnerVisible(true);
-        const newData: CustomerWrapper = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, POST({}));
+        const newData: CustomerWrapper = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, POST(filterValues));
         setCustomerData(newData.data);
         setPagination(newData.pagination);
         setPageIndex(newPageIndex);
@@ -69,44 +67,47 @@ export default function CustomerTable() {
 
 
 
-    //const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ id: [], increasedate: [], power: [], vehicle: [] });
-    //useQuery({
-    //    queryKey: ["filter"],
-    //    queryFn: () => getCustomerFilter()
-    //});
-    //const getCustomerFilter = async () => {
-    //    const data = await SafeFetchJson(`api/CustomerFilter`, GET());
-    //    setFilterOptions(data);
-    //    return data;
-    //}
-
-
-
-
-
-
-
-    //const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ color: "", name: "", job: "" });
-    //useEffect(() => {
-    //    reloadData();
-    //}, [filterValues])
-
-    //const applyFilter = (controlValue: string, name: string) => {
-    //    setFilterValues({ ...filterValues, [name]: controlValue });
-    //}
-
-
-
-
-
-
-
-
-    const updater = (value: boolean, index: number) => {
-        setCustomerData(prevItems =>
-            prevItems.map((item, i) => ((i == index || index == -1) ? { ...item, selected: value } : item))
-        );
+    const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ increasedate: [], power: [], vehicle: [] });
+    useQuery({
+        queryKey: ["filter"],
+        queryFn: () => getCustomerFilter()
+    });
+    const getCustomerFilter = async () => {
+        const data = await SafeFetchJson(`api/GetCustomerFilter`, GET());
+        setFilterOptions(data);
+        return data;
     }
+
+
+
+
+
+
+
+    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ id: "", power: "", increasedate: "", vehicle: "" });
+    useEffect(() => {
+        loadCustomerData(pageIndex);
+    }, [filterValues])
+
+    const applyFilter = (controlValue: string, name: string) => {
+        if (name.endsWith("List"))
+            name = name.substring(0, name.length - 4);
+
+        setFilterValues({ ...filterValues, [name]: controlValue });
+    }
+
+
+
+
+
+
+
+
+    //const onSelect = (value: boolean, index: number) => {
+    //    setCustomerData(prevItems =>
+    //        prevItems.map((item, i) => ((i == index || index == -1) ? { ...item, selected: value } : item))
+    //    );
+    //}
 
     const detailClick = (index: number) => {
         alert(JSON.stringify(customerData[index]));
@@ -139,11 +140,14 @@ export default function CustomerTable() {
             { id: 0, active: true, name: "id", text: "ID" },
             { id: 1, active: true, name: "vehicle", text: "Vehicle" },
             { id: 2, active: true, name: "power", text: "Power" },
-            { id: 3, active: true, name: "increasedate", text: "Increase Date" }
+            { id: 3, active: true, name: "increasedate", text: "Increase Date" },
+            { id: 4, active: false, name: "fineoperator", text: "Fine Operator" },
+            { id: 5, active: false, name: "fineamount", text: "Fine Amount" },
+            { id: 6, active: false, name: "age", text: "Age" },
+            { id: 7, active: false, name: "power", text: "Power" },
+            { id: 8, active: false, name: "issuer", text: "Issuer" },
+            { id: 9, active: false, name: "status", text: "Status" }
         ]
-    }
-    const getHeader = () => {
-        return columnData != null && columnData.map((column: ColumnData) => { return column.active && <td>{column.text}</td> });
     }
     const [columnData, setColumnData] = useState<ColumnData[]>(loadData());
     useEffect(() => {
@@ -154,39 +158,28 @@ export default function CustomerTable() {
             localStorage.setItem("liststructure_customer", JSON.stringify(columnData));
         }
     }, [columnData])
-    const openEditor = () => {
-        const dialog = document.getElementById('dialog_tableEditor') as HTMLDialogElement;
-        dialog.showModal();
-    }
 
 
 
-            //<TableFilter openEditor={openEditor} applyFilter={applyFilter} filterData={filterOptions}></TableFilter>
+
+
+
 
     return (
         <>
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
+            <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
 
-
-            <button className="btn btn-primary" type="button" onClick={openEditor}>Edit columns</button>
-
-
-
-            <Table selector={showSelector} detail={showDetail} header={getHeader()}>
+            <Table columnData={columnData} onDetailClick={detailClick}>
                 {
                     customerData.map((item, index) =>
-                        <TableRow selector={showSelector} updater={updater} detail={showDetail} index={index} detailClick={detailClick}>
+                        <TableRow index={index} onDetailClick={detailClick}>
                             {columnData != null && columnData.map((column: ColumnData) => {
-                                if (!column.active) return;
-
-                                if (column.name == "vehicle")
-
-
-                                    return <td>     <NumberPlate>{item.vehicle}</NumberPlate>     </td>
-
-
-
+                                if (!column.active)
+                                    return;
+                                else if (column.name == "vehicle")
+                                    return <td><NumberPlate>{item.vehicle}</NumberPlate></td>
                                 else
                                     return <td>{item[column.name as keyof typeof item]}</td>
                             })}
