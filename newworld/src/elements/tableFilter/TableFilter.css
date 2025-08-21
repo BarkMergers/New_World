@@ -1,0 +1,35 @@
+.search-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    border-radius: var(--rounded-btn, 0.5rem);
+    height: auto;
+    padding: 0px;
+    color: white;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: gray;
+    pointer-events: none; /* lets clicks pass through to input */
+}
+
+.search-input {
+    width: 100%;
+    padding: 3px 10px 3px 35px; /* padding-left for the icon */
+    background: none;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.filter-select {
+    border: 1px solid silver;
+    background: none;
+    color: #444;
+    appearance: auto;
+    border-radius: 0.5rem;
+    margin-left: 5px;
+}

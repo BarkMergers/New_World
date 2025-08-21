@@ -1,0 +1,13 @@
+.number-plate {
+    background-color: #fed44c;
+    border: 1px solid #dfba41;
+    background: #fed44c;
+    border-radius: 5px;
+    padding: 5px 10px;
+    min-width: 80px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: bold;
+    text-transform: uppercase;
+    font-weight: bold;
+}

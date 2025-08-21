@@ -1,0 +1,18 @@
+.pagination-button
+ {
+    display: inline-block;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+    .pagination-button:not(:first-child) {
+        border-left: 1px solid silver;
+    }
+
+.pagination-bar {
+    display: inline-block;
+    overflow: hidden;
+}
+
+
+
