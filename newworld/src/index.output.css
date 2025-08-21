@@ -1814,6 +1814,18 @@
   .min-h-0 {
     min-height: calc(var(--spacing) * 0);
   }
+  .min-h-10 {
+    min-height: calc(var(--spacing) * 10);
+  }
+  .min-h-11 {
+    min-height: calc(var(--spacing) * 11);
+  }
+  .min-h-100 {
+    min-height: calc(var(--spacing) * 100);
+  }
+  .min-h-200 {
+    min-height: calc(var(--spacing) * 200);
+  }
   .w-1 {
     width: calc(var(--spacing) * 1);
   }
@@ -1951,6 +1963,9 @@
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
+  }
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
   }
   .p-4 {
     padding: calc(var(--spacing) * 4);

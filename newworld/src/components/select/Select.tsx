@@ -1,6 +1,4 @@
-﻿import './Select.css';
-
-export default function Select({ title, value, data, onChange }: { title: string, value: string, data: (string)[], onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void } ) {
+﻿export default function Select({ title, value, data, onChange }: { title: string, value: string, data: (string)[], onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void } ) {
     return (
         <fieldset className="fieldset select-container">
             <legend className="fieldset-legend text-left">{title}</legend>

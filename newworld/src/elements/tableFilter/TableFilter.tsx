@@ -1,6 +1,4 @@
-﻿import './TableFilter.css';
-//import { FaSearch } from 'react-icons/fa';
-import React from "react";
+﻿import React from "react";
 
 export default function TableFilter({ onEditColumn, filterData, applyFilter }: { onEditColumn?: () => void, filterData: object, applyFilter: (value1: string, value2: string) => void }) {
     return (
