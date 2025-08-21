@@ -1,21 +1,60 @@
 ﻿import Avatar from '../../components/avatar/Avatar';
 import { FaSearch } from 'react-icons/fa';
+import { FaPaintBrush } from 'react-icons/fa';
+import React from "react";
 
 export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
 
-    return (
-        <div className="jaama-panel my-1 flex flex-row items-center gap-2 rounded-lg px-4 py-1">
-            <span className="grow text-left">
-                {title}
-            </span>
-            <span>
-                <div className="input search border-gray-400 bg-transparent">
-                    <FaSearch className="search-icon" />
-                    <input type="text" placeholder="Search vehicle..." className="search-input bg-transparent" />
-                </div>
-            </span>
 
-            <Avatar size={2.5}></Avatar>
+    const setTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        document.body.setAttribute("data-theme", e.target.value);
+    }
+
+
+    return (
+        <div class="card card-border bg-base-200 text-base-content my-1">
+            <div class="card-body p-1 flex-row items-center">
+
+                <span className="grow text-left">
+                    {title}
+                </span>
+
+                <span>
+
+                    <div class="flex items-center gap-2 select ps-0">
+
+                        <FaPaintBrush className="h-5 w-[18px] min-w-[36px] text-current" />
+
+           
+
+                        <select onChange={setTheme}
+                            className="text-base-content border-none focus:ring-0 focus:outline-none"
+                        >
+                            <option>light</option>
+                            <option>dark</option>
+                            <option>acid</option>
+                            <option>bumblebee</option>
+                            <option>cupcake</option>
+                        </select>
+                    </div>
+
+
+                </span>
+
+                <span>
+                    <div className="input search">
+                        <FaSearch className="h-5 w-[18px] min-w-[36px] text-current" />
+                        <input type="text" placeholder="Search vehicle..." className="search-input" />
+                    </div>
+                </span>
+
+
+
+                <Avatar size={2.5}></Avatar>
+
+
+
+            </div>
         </div>
     )
 }

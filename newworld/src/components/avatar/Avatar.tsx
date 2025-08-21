@@ -1,3 +1,7 @@
+
+
+
+
 export default function Avatar({ size = 16 }: { size?: number }) {
 
     return (
@@ -8,3 +12,5 @@ export default function Avatar({ size = 16 }: { size?: number }) {
         </div>
     )
 }
+
+

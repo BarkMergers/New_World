@@ -27,22 +27,25 @@ export default function Table({ children, header, selector = false, detail = fal
 
     return (
         <>
-            <div className="jaama-panel my-1">
-                <table className="table">
 
-                    <thead>
-                        <tr>
-                            {selector && <td><input ref={chkSelectAll} type="checkbox" onChange={(e) => updater!(e.target.checked, -1)} name="itemSelector" className="h-5 w-5 align-middle"></input></td>}
-                            {header}
-                            {detail && <td></td>}
-                        </tr>
-                    </thead>
+            <div className="card card-border bg-base-200 text-base-content my-1">
+                <div className="card-body flex-row p-1">
+                    <table className="table">
 
-                    <tbody>
-                        {children}
-                    </tbody>
+                        <thead>
+                            <tr>
+                                {selector && <td><input ref={chkSelectAll} type="checkbox" onChange={(e) => updater!(e.target.checked, -1)} name="itemSelector" className="h-5 w-5 align-middle"></input></td>}
+                                {header}
+                                {detail && <td></td>}
+                            </tr>
+                        </thead>
 
-                </table>
+                        <tbody>
+                            {children}
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
         </>
     )

@@ -114,6 +114,10 @@ export default function AgentTable() {
 
 
 
+
+
+
+
     const loadData = (): ColumnData[] => {
         try {
             const rawStorageData: string | null = localStorage.getItem("liststructure_myaccounts")
@@ -191,7 +195,14 @@ export default function AgentTable() {
 
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
+
+
+
             <TableFilter openEditor={openEditor} applyFilter={applyFilter} filterData={filterOptions}></TableFilter>
+
+
+
+
 
             <Table tableData={data} selector={showSelector} detail={showDetail} header={getHeader()} updater={updater}>
                 {
@@ -205,6 +216,9 @@ export default function AgentTable() {
                     )
                 }
             </Table>
+
+
+
 
 
 

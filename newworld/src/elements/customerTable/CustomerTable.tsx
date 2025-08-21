@@ -7,6 +7,9 @@ import { useQuery } from '@tanstack/react-query';
 import { POST, SafeFetchJson } from '../../helpers/fetch';
 import type { pagination } from '../../models/Pagination';
 
+//import type { CustomerFilterOptions } from '../../models/CustomerFilterOptions';
+//import type { CustomerFilterValues } from '../../models/CustomerFilterValues';
+
 
 import { useContext } from "react";
 import type { GlobalData } from '../../models/GlobalData';
@@ -14,6 +17,7 @@ import { UserContext } from '../../helpers/globalData';
 import type { ColumnData } from '../../models/ColumnData';
 import ColumnEditor from '../columEditor/ColumnEditor';
 import NumberPlate from '../../components/numberPlate/NumberPlate';
+//import TableFilter from '../tableFilter/TableFilter';
 
 
 export default function CustomerTable() {
@@ -40,28 +44,22 @@ export default function CustomerTable() {
     }
 
 
+
+
     const { data: CustomerWrapper } = useQuery({
         queryKey: ["todo", pageIndex],
         queryFn: () => loadCustomerData(pageIndex)
     });
-
     const loadCustomerData = async (newPageIndex: number) => {
         newPageIndex = newPageIndex || 0;
-
         globalData.SetSpinnerVisible(true);
-
         const newData: CustomerWrapper = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, POST({}));
-
         setCustomerData(newData.data);
         setPagination(newData.pagination);
         setPageIndex(newPageIndex);
-
         globalData.SetSpinnerVisible(false);
-
         return customerData;
     }
-
-
     const updatePage = (pageIndex: number) => {
         setPageIndex(pageIndex * pageSize);
     }
@@ -69,6 +67,33 @@ export default function CustomerTable() {
 
 
 
+
+
+    //const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ id: [], increasedate: [], power: [], vehicle: [] });
+    //useQuery({
+    //    queryKey: ["filter"],
+    //    queryFn: () => getCustomerFilter()
+    //});
+    //const getCustomerFilter = async () => {
+    //    const data = await SafeFetchJson(`api/CustomerFilter`, GET());
+    //    setFilterOptions(data);
+    //    return data;
+    //}
+
+
+
+
+
+
+
+    //const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ color: "", name: "", job: "" });
+    //useEffect(() => {
+    //    reloadData();
+    //}, [filterValues])
+
+    //const applyFilter = (controlValue: string, name: string) => {
+    //    setFilterValues({ ...filterValues, [name]: controlValue });
+    //}
 
 
 
@@ -136,11 +161,17 @@ export default function CustomerTable() {
 
 
 
+            //<TableFilter openEditor={openEditor} applyFilter={applyFilter} filterData={filterOptions}></TableFilter>
 
     return (
         <>
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
+
+
+
             <button className="btn btn-primary" type="button" onClick={openEditor}>Edit columns</button>
+
+
 
             <Table selector={showSelector} detail={showDetail} header={getHeader()}>
                 {
@@ -150,7 +181,12 @@ export default function CustomerTable() {
                                 if (!column.active) return;
 
                                 if (column.name == "vehicle")
-                                    return <td> <NumberPlate>{item.vehicle}</NumberPlate></td>
+
+
+                                    return <td>     <NumberPlate>{item.vehicle}</NumberPlate>     </td>
+
+
+
                                 else
                                     return <td>{item[column.name as keyof typeof item]}</td>
                             })}
@@ -163,3 +199,4 @@ export default function CustomerTable() {
         </>
     )
 }
+

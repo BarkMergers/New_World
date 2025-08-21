@@ -79,11 +79,11 @@ function App() {
 
                 <SpinnerLoader></SpinnerLoader>
 
-                <div className="bg-white">
+                <div className="">
                     <NavBar accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
                 </div>
 
-                <div className="h-screen flex-grow bg-gray-300 p-4">
+                <div className="h-screen flex-grow p-4">
                     <Routes>
                             <Route path="/dashboard" element={<Dashboard />}></Route>
                             <Route path="/home" element={<Home />}></Route>
