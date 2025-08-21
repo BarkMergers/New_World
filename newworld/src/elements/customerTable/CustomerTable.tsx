@@ -22,6 +22,7 @@ import TableFilter from '../tableFilter/TableFilter';
 
 export default function CustomerTable() {
 
+
     const pageSize = 3;
     const [customerData, setCustomerData] = useState<Customer[]>([]);
     const [pageIndex, setPageIndex] = useState(0);
