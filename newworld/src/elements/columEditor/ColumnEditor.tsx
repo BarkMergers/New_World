@@ -5,7 +5,7 @@ import type { ColumnData } from '../../models/ColumnData';
 
 export function LoadColumnData (columnListName: string, resetList: () => ColumnData[]): ColumnData[] {
     try {
-        const rawStorageData: string | null = localStorage.getItem("liststructure_customer")
+        const rawStorageData: string | null = localStorage.getItem(columnListName)
         if (rawStorageData == null || rawStorageData == "" || rawStorageData == "[]" || rawStorageData == "null") {
             return resetList();
         }
@@ -26,7 +26,6 @@ export function SaveColumnData(columnListName: string, columnData: object) {
         localStorage.setItem(columnListName, JSON.stringify(columnData));
     }
 }
-
 
 export function OpenColumnEditor() {
     const dialog = document.getElementById('dialog_tableEditor') as HTMLDialogElement;

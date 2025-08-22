@@ -12,10 +12,6 @@ import type { ColumnData } from '../../models/ColumnData';
 import type { Agent } from '../../models/Agent';
 import Modal from '../../components/modal/Modal';
 
-import { useContext } from "react";
-import type { GlobalData } from '../../models/GlobalData';
-import { UserContext } from '../../helpers/globalData';
-
 export default function AgentTable() {
 
     const rawData = [{
@@ -56,7 +52,6 @@ export default function AgentTable() {
     }];
 
     const [data, setData] = useState<Agent[]>(rawData);
-    const globalData: GlobalData = useContext(UserContext);
 
     const onSelect = (value: boolean, index: number) => {
         setData(prevItems =>
