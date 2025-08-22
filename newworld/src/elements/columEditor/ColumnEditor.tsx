@@ -3,6 +3,31 @@ import { ReactSortable } from "react-sortablejs";
 import { FaGripVertical } from 'react-icons/fa'; // Font Awesome
 import type { ColumnData } from '../../models/ColumnData';
 
+export function LoadColumnData (columnListName: string, resetList: () => ColumnData[]): ColumnData[] {
+    try {
+        const rawStorageData: string | null = localStorage.getItem("liststructure_customer")
+        if (rawStorageData == null || rawStorageData == "" || rawStorageData == "[]" || rawStorageData == "null") {
+            return resetList();
+        }
+        else {
+            return JSON.parse(rawStorageData!);
+        }
+    }
+    catch {
+        return resetList();
+    }
+}
+
+export function SaveColumnData(columnListName: string, columnData: object) {
+    if (columnData == null) {
+        localStorage.removeItem(columnListName);
+    }
+    else {
+        localStorage.setItem(columnListName, JSON.stringify(columnData));
+    }
+}
+
+
 export function OpenColumnEditor() {
     const dialog = document.getElementById('dialog_tableEditor') as HTMLDialogElement;
     dialog.showModal();

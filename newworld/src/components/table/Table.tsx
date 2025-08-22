@@ -16,7 +16,9 @@ export default function Table({ children, columnData, onSelect, tableData, onDet
     const showDetail = onDetailClick !== undefined;
 
     const getHeader = () => {
-        return columnData != null && columnData.map((column: ColumnData) => { return column.active && <td>{column.text}</td> });
+        return columnData != null && columnData.map((column: ColumnData) => {
+            return column.active && <td key={column.name} >{column.text}</td>
+        });
     }
 
     const chkSelectAll = useRef<HTMLInputElement>(null);

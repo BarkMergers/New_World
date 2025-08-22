@@ -1,7 +1,6 @@
 ﻿import Avatar from '../../components/avatar/Avatar';
 import { FaSearch } from 'react-icons/fa';
 import { FaPaintBrush } from 'react-icons/fa';
-import React from "react";
 
 export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
 
@@ -25,9 +24,11 @@ export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
                         <select onChange={setTheme} className="text-base-content border-none focus:ring-0 focus:outline-none">
                             <option>light</option>
                             <option>dark</option>
-                            <option>acid</option>
-                            <option>bumblebee</option>
-                            <option>cupcake</option>
+                            <option>retro</option>
+                            <option>aqua</option>
+                            <option>dim</option>
+                            <option>garden</option>
+                            <option>forest</option>
                         </select>
                     </div>
                 </span>

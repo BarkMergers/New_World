@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { SafeFetchJson, GET } from '../../helpers/fetch';
 import type { AgentFilterOptions } from '../../models/AgentFilterOptions';
 import type { AgentFilterValues } from '../../models/AgentFilterValues';
-import ColumnEditor, { OpenColumnEditor } from '../columEditor/ColumnEditor';
+import ColumnEditor, { OpenColumnEditor, LoadColumnData, SaveColumnData } from '../columEditor/ColumnEditor';
 import type { ColumnData } from '../../models/ColumnData';
 import type { Agent } from '../../models/Agent';
 import Modal from '../../components/modal/Modal';
@@ -114,22 +114,8 @@ export default function AgentTable() {
 
 
 
-    const loadData = (): ColumnData[] => {
-        try {
-            const rawStorageData: string | null = localStorage.getItem("liststructure_myaccounts")
-            if (rawStorageData == null || rawStorageData == "" || rawStorageData == "[]" || rawStorageData == "null") {
-                return resetList();
-            }
-            else {
-                return JSON.parse(rawStorageData!);
-            }
-        }
-        catch {
-            return resetList();
-        }
-    }
     useEffect(() => {
-        setColumnData(loadData());
+        setColumnData(LoadColumnData("liststructure_myaccounts", resetList));
     }, []);
     const resetList = () => {
         return [
@@ -140,15 +126,10 @@ export default function AgentTable() {
             { id: 4, active: false, name: "age", text: "Age" },
         ]
     }
-    const [columnData, setColumnData] = useState<ColumnData[]>(loadData());
+    const [columnData, setColumnData] = useState<ColumnData[]>(LoadColumnData("liststructure_myaccounts", resetList));
 
     useEffect(() => {
-        if (columnData == null) {
-            localStorage.removeItem("liststructure_myaccounts");
-        }
-        else {
-            localStorage.setItem("liststructure_myaccounts", JSON.stringify(columnData));
-        }
+        SaveColumnData("liststructure_myaccounts", columnData);
     }, [columnData])
 
 
@@ -191,10 +172,10 @@ export default function AgentTable() {
             <Table tableData={data} columnData={columnData} onSelect={onSelect} onDetailClick={detailClick}>
                 {
                     data.map((item: Agent, index: number) =>
-                        <TableRow index={index} selected={item.selected} onSelect={onSelect} onDetailClick={detailClick}>
-                            {columnData != null && columnData.map((column: ColumnData) => {
+                        <TableRow key={`row${index}`} index={index} selected={item.selected} onSelect={onSelect} onDetailClick={detailClick}>
+                            {columnData != null && columnData.map((column: ColumnData, index: number) => {
                                 if (column.active)
-                                    return <td>{item[column.name as keyof typeof item]}</td>
+                                    return <td key={index}>{item[column.name as keyof typeof item]}</td>
                             })}
                         </TableRow>
                     )

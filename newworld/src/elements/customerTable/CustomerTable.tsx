@@ -15,7 +15,7 @@ import { useContext } from "react";
 import type { GlobalData } from '../../models/GlobalData';
 import { UserContext } from '../../helpers/globalData';
 import type { ColumnData } from '../../models/ColumnData';
-import ColumnEditor, { OpenColumnEditor } from '../columEditor/ColumnEditor';
+import ColumnEditor, { OpenColumnEditor, LoadColumnData, SaveColumnData } from '../columEditor/ColumnEditor';
 import NumberPlate from '../../components/numberPlate/NumberPlate';
 import TableFilter from '../tableFilter/TableFilter';
 
@@ -44,7 +44,7 @@ export default function CustomerTable() {
 
 
 
-
+    // Load data from server
     const { data: CustomerWrapper } = useQuery({
         queryKey: ["todo", pageIndex],
         queryFn: () => loadCustomerData(pageIndex)
@@ -67,10 +67,10 @@ export default function CustomerTable() {
 
 
 
-
+    // Load filter options from server
     const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ increasedate: [], power: [], vehicle: [] });
     useQuery({
-        queryKey: ["filter"],
+        queryKey: ["customerfilter"],
         queryFn: () => getCustomerFilter()
     });
     const getCustomerFilter = async () => {
@@ -84,16 +84,14 @@ export default function CustomerTable() {
 
 
 
-
+    // When filter is updated, reload the data
     const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ id: "", power: "", increasedate: "", vehicle: "" });
     useEffect(() => {
         loadCustomerData(pageIndex);
     }, [filterValues])
-
     const applyFilter = (controlValue: string, name: string) => {
         if (name.endsWith("List"))
             name = name.substring(0, name.length - 4);
-
         setFilterValues({ ...filterValues, [name]: controlValue });
     }
 
@@ -101,15 +99,7 @@ export default function CustomerTable() {
 
 
 
-
-
-
-    //const onSelect = (value: boolean, index: number) => {
-    //    setCustomerData(prevItems =>
-    //        prevItems.map((item, i) => ((i == index || index == -1) ? { ...item, selected: value } : item))
-    //    );
-    //}
-
+    // What happens when the detail button is clicked
     const detailClick = (index: number) => {
         alert(JSON.stringify(customerData[index]));
     }
@@ -119,22 +109,9 @@ export default function CustomerTable() {
 
 
 
-    const loadData = () : ColumnData[] => {
-        try {
-            const rawStorageData: string | null = localStorage.getItem("liststructure_customer")
-            if (rawStorageData == null || rawStorageData == "" || rawStorageData == "[]" || rawStorageData == "null") {
-                return resetList();
-            }
-            else {
-                return JSON.parse(rawStorageData!);
-            }
-        }
-        catch {
-            return resetList();
-        }
-    }
+    // Handle column editor
     useEffect(() => {
-        setColumnData(loadData());
+        setColumnData(LoadColumnData("liststructure_customer", resetList));
     }, []);
     const resetList = () => {
         return [
@@ -150,15 +127,12 @@ export default function CustomerTable() {
             { id: 9, active: false, name: "status", text: "Status" }
         ]
     }
-    const [columnData, setColumnData] = useState<ColumnData[]>(loadData());
+    const [columnData, setColumnData] = useState<ColumnData[]>(LoadColumnData("liststructure_customer", resetList));
     useEffect(() => {
-        if (columnData == null) {
-            localStorage.removeItem("liststructure_customer");
-        }
-        else {
-            localStorage.setItem("liststructure_customer", JSON.stringify(columnData));
-        }
+        SaveColumnData("liststructure_customer", columnData);
     }, [columnData])
+
+
 
 
 
