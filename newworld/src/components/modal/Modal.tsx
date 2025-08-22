@@ -1,8 +1,5 @@
 ﻿import { useRef, type ReactNode } from 'react'
-import modalError from '/modalerror.png'
-import modalQuestion from '/modalquestion.png'
 import modalSucess from '/modalsuccess.png'
-import modalWarning from '/modalwarning.png'
 
 export default function Modal({ id, title, children, onClose, buttons }:
     { id: string, title: string, children: ReactNode, onClose?: () => void, buttons?: string }) {

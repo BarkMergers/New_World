@@ -3,7 +3,6 @@ import { useContext } from "react";
 import { UserContext } from '../../helpers/globalData';
 import Input from '../../components/input/Input';
 import Label from '../../components/label/Label';
-import Modal from '../../components/modal/Modal';
 import { SafeFetchJson, GET, SafeFetch, POST } from '../../helpers/fetch';
 import type { Customer } from '../../models/Customer';
 
