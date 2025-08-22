@@ -88,8 +88,8 @@ export default function CustomerTable() {
 
 
 
-    // What happens when the detail button is clicked
-    const detailClick = (index: number) => {
+    // What happens when the View button is clicked
+    const viewClick = (index: number) => {
         globalData.ShowConfirmation("Are you sure you want to view this record?", "Customer", "question", () => {
             navigate(`/customer/${customerData[index].id}`)
         })
@@ -107,7 +107,6 @@ export default function CustomerTable() {
         return [
             { id: 0, active: true, name: "id", text: "ID" },
             { id: 1, active: true, name: "vehicle", text: "Vehicle" },
-            { id: 2, active: true, name: "power", text: "Power" },
             { id: 3, active: true, name: "increasedate", text: "Increase Date" },
             { id: 4, active: false, name: "fineoperator", text: "Fine Operator" },
             { id: 5, active: false, name: "fineamount", text: "Fine Amount" },
@@ -124,22 +123,16 @@ export default function CustomerTable() {
 
 
 
-
-
-
-
-
-
     return (
         <>
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
             <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
 
-            <Table columnData={columnData} onDetailClick={detailClick}>
+            <Table columnData={columnData} onViewClick={viewClick}>
                 {
                     customerData.map((item, index) =>
-                        <TableRow index={index} onDetailClick={detailClick}>
+                        <TableRow index={index} onViewClick={viewClick} viewText="Edit"> 
                             {columnData != null && columnData.map((column: ColumnData) => {
                                 if (!column.active)
                                     return;

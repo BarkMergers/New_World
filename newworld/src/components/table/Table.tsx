@@ -1,19 +1,15 @@
 ﻿import type { ReactNode } from 'react';
 import { useRef, useEffect } from 'react';
 import type { ColumnData } from '../../models/ColumnData';
-
-type ArrayWithSelect = {
-    selected: boolean;
-};
+import type { ArrayWithSelect } from '../../models/ArrayWithSelect';
 
 
 
-
-export default function Table({ children, columnData, onSelect, tableData, onDetailClick }:
-    { children: ReactNode, columnData: ColumnData[], onSelect?: (value1: boolean, value2: number) => void, tableData?: ArrayWithSelect[], onDetailClick?: (value1: number) => void }) {
+export default function Table({ children, columnData, onSelect, tableData, onViewClick }:
+    { children: ReactNode, columnData: ColumnData[], onSelect?: (value1: boolean, value2: number) => void, tableData?: ArrayWithSelect[], onViewClick?: (value1: number) => void }) {
 
     const showSelector = onSelect !== undefined;
-    const showDetail = onDetailClick !== undefined;
+    const showView = onViewClick !== undefined;
 
     const getHeader = () => {
         return columnData != null && columnData.map((column: ColumnData) => {
@@ -49,7 +45,7 @@ export default function Table({ children, columnData, onSelect, tableData, onDet
                             <tr>
                                 {showSelector && <td><input ref={chkSelectAll} type="checkbox" onChange={(e) => onSelect!(e.target.checked, -1)} name="itemSelector" className="h-5 w-5 align-middle"></input></td>}
                                 {getHeader()}
-                                {showDetail && <td></td>}
+                                {showView && <td></td>}
                             </tr>
                         </thead>
 

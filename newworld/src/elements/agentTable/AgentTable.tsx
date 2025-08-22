@@ -10,9 +10,14 @@ import type { AgentFilterValues } from '../../models/AgentFilterValues';
 import ColumnEditor, { OpenColumnEditor, LoadColumnData, SaveColumnData } from '../columEditor/ColumnEditor';
 import type { ColumnData } from '../../models/ColumnData';
 import type { Agent } from '../../models/Agent';
-import Modal from '../../components/modal/Modal';
+import { useContext } from "react";
+import type { GlobalData } from '../../models/GlobalData';
+import { UserContext } from '../../helpers/globalData';
 
 export default function AgentTable() {
+
+
+    const globalData: GlobalData = useContext(UserContext);
 
     const rawData = [{
         selected: true,
@@ -132,19 +137,10 @@ export default function AgentTable() {
 
 
 
-    const [detailData, setDetailData] = useState<string>("");
 
-
-
-    const detailClick = (index: number) => {
-        setDetailData(JSON.stringify(data[index]));
-        const dialog = document.getElementById('show_agent') as HTMLDialogElement;
-        dialog.showModal();
+    const viewClick = (index: number) => {
+        globalData.ShowMessage(JSON.stringify(data[index]), "Agent Table", "success")
     }
-
-
-
-
 
 
 
@@ -152,19 +148,14 @@ export default function AgentTable() {
 
     return (
         <>
-
-            <Modal id="show_agent" title="Agent Details">
-                {detailData}
-            </Modal>
-
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
             <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
 
-            <Table tableData={data} columnData={columnData} onSelect={onSelect} onDetailClick={detailClick}>
+            <Table tableData={data} columnData={columnData} onSelect={onSelect} onViewClick={viewClick}>
                 {
                     data.map((item: Agent, index: number) =>
-                        <TableRow key={`row${index}`} index={index} selected={item.selected} onSelect={onSelect} onDetailClick={detailClick}>
+                        <TableRow key={`row${index}`} index={index} selected={item.selected} onSelect={onSelect} onViewClick={viewClick}>
                             {columnData != null && columnData.map((column: ColumnData, index: number) => {
                                 if (column.active)
                                     return <td key={index}>{item[column.name as keyof typeof item]}</td>

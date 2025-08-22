@@ -1,5 +1,5 @@
 ﻿export default function Input({ value, title, placeholder, type, onChange }:
-    { value: string | number, title: string, placeholder: string, type: string, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void }) {
+    { value: string | number, title: string, placeholder?: string, type: string, onChange: (event: React.ChangeEvent<HTMLInputElement>) => void }) {
 
     return (
         <>

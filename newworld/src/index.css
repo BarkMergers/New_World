@@ -3,13 +3,9 @@
     themes: light --default, dark --prefersdark, aqua, retro, dim, garden, forest;
 }
 
-
-
 html {
     scrollbar-gutter: auto !important;
 }
-
-
 
 :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -36,8 +32,6 @@ h1 {
   line-height: 1.1;
 }
 
-
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -50,6 +44,3 @@ h1 {
     background-color: #f9f9f9;
   }
 }
-
-
-
