@@ -32,6 +32,42 @@ export const globalData: GlobalData = {
             case "warning": iconElement.src = modalWarning; break;
         }
 
+        (dialog.querySelectorAll('.modal-ok')[0] as HTMLImageElement).style.display = "block";
+        (dialog.querySelectorAll('.modal-cancel')[0] as HTMLImageElement).style.display = "none";
+        (dialog.querySelectorAll('.modal-yes')[0] as HTMLImageElement).style.display = "none";
+        (dialog.querySelectorAll('.modal-no')[0] as HTMLImageElement).style.display = "none";
+
+        dialog.showModal();
+    },
+
+
+    ShowConfirmation: (message: string, title: string, icon: "success" | "warning" | "question" | "error", onContinue: () => void) => {
+        const dialog = document.getElementById('generic_message_box') as HTMLDialogElement;
+
+        dialog.querySelectorAll(".modal-title")[0].innerHTML = title;
+        dialog.querySelectorAll(".modal-body")[0].innerHTML = message;
+
+        const iconElement = dialog.querySelectorAll('.success-icon')[0] as HTMLImageElement;
+        switch (icon) {
+            case "question": iconElement.src = modalQuestion; break;
+            case "success": iconElement.src = modalSucess; break;
+            case "error": iconElement.src = modalError; break;
+            case "warning": iconElement.src = modalWarning; break;
+        }
+
+        (dialog.querySelectorAll('.modal-ok')[0] as HTMLImageElement).style.display = "none";
+        (dialog.querySelectorAll('.modal-cancel')[0] as HTMLImageElement).style.display = "none";
+        (dialog.querySelectorAll('.modal-no')[0] as HTMLImageElement).style.display = "block";
+
+        const yesButton = dialog.querySelectorAll('.modal-yes')[0] as HTMLImageElement;
+        yesButton.style.display = "block";
+        const continueFunction = () => {
+            yesButton.removeEventListener("click", continueFunction, false);
+            onContinue();
+        }
+
+        yesButton.addEventListener("click", continueFunction, false);
+
         dialog.showModal();
     },
 

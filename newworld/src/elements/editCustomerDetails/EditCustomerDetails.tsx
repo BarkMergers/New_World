@@ -36,8 +36,15 @@ export default function EditCustomerDetails({ id }: {id : string | undefined }) 
 
 
     // Submit the record held in 'data' to the server
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        globalData.ShowConfirmation("Are you sure you want to save this record?", "Customer", "question", async () => {
+            await processSave();
+        })
+    }
+
+    const processSave = async () => {
 
         globalData.SetSpinnerVisible(true);
 

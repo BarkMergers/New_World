@@ -1,8 +1,8 @@
 ﻿import { useRef, type ReactNode } from 'react'
 import modalSucess from '/modalsuccess.png'
 
-export default function Modal({ id, title, children, onClose, buttons }:
-    { id: string, title: string, children: ReactNode, onClose?: () => void, buttons?: string }) {
+export default function Modal({ id, title, children, onClose }:
+    { id: string, title: string, children: ReactNode, onClose?: () => void }) {
 
     const modalRef = useRef(null);
 
@@ -23,23 +23,17 @@ export default function Modal({ id, title, children, onClose, buttons }:
                 <h3 className="modal-title p-2 text-center text-lg font-bold">{title}</h3>
 
                 <div>
-                    <img className="success-icon m-auto h-[100px] w-[100px]" src={ modalSucess } />
+                    <img className="success-icon m-auto h-[100px]" src={ modalSucess } />
                 </div>
 
                 <span className="modal-body">{children}</span>
 
-                {(typeof buttons == "undefined" || buttons == "") &&
-                    <div className="modal-action" style={{ justifyContent: "center", paddingTop: "20px" }} >
-                        <button className="btn" onClick={handleClose}>Close</button>
-                    </div>
-                }
-
-                {buttons == "save" &&
-                    <div className="modal-action" style={{ justifyContent: "center", paddingTop: "20px" }} >
-                        <button type="submit" className="btn" onClick={handleClose}>Save</button>
-                        <button className="btn" onClick={handleClose}>Cancel</button>
-                    </div>
-                }
+                <div className="modal-action" style={{ justifyContent: "center", paddingTop: "20px" }} >
+                    <button type="submit" className="btn btn-primary modal-ok" onClick={handleClose}>Ok</button>
+                    <button className="btn btn-secondary modal-cancel hidden" onClick={handleClose}>Cancel</button>
+                    <button className="btn btn-primary modal-yes hidden" onClick={handleClose}>Yes</button>
+                    <button className="btn btn-secondary modal-no hidden" onClick={handleClose}>No</button>
+                </div>
 
             </form>
         </dialog>

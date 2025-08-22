@@ -90,7 +90,9 @@ export default function CustomerTable() {
 
     // What happens when the detail button is clicked
     const detailClick = (index: number) => {
-        navigate(`/customer/${customerData[index].id}`)
+        globalData.ShowConfirmation("Are you sure you want to view this record?", "Customer", "question", () => {
+            navigate(`/customer/${customerData[index].id}`)
+        })
     }
 
 
