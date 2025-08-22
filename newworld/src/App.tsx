@@ -16,12 +16,15 @@ import Modal from "./components/modal/Modal";
 
 const Home = lazy(() => import('./screens/home/home/Home'));
 const Dashboard = lazy(() => import('./screens/home/dashboard/Dashboard'));
+const Plain = lazy(() => import('./screens/home/plain/Plain'));
+const CustomerDetails = lazy(() => import('./screens/customer/customerDetails/CustomerDetails'));
+const Customer = lazy(() => import('./screens/customer/customer/Customer'));
 
 //import Home from "./screens/home/home/Home";
 //import Dashboard from "./screens/home/dashboard/Dashboard";
-import Plain from "./screens/home/plain/Plain";
-import CustomerDetails from "./screens/customer/customerDetails/CustomerDetails";
-import Customer from "./screens/customer/customer/Customer";
+//import Plain from "./screens/home/plain/Plain";
+//import CustomerDetails from "./screens/customer/customerDetails/CustomerDetails";
+//import Customer from "./screens/customer/customer/Customer";
 
 
 
