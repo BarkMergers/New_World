@@ -20,11 +20,12 @@ export default function Modal({ id, title, children, onClose }:
     return (
         <dialog ref={modalRef} id={id} className="modal" onCancel={handleESC}>
             <form method="dialog" className="modal-box text-center">
-                <h3 className="modal-title p-2 text-center text-lg font-bold">{title}</h3>
 
                 <div>
-                    <img className="success-icon m-auto h-[100px]" src={ modalSucess } />
+                    <img className="success-icon m-auto h-[100px] pt-5" src={ modalSucess } />
                 </div>
+
+                <h3 className="modal-title p-2 text-center text-lg font-bold">{title}</h3>
 
                 <span className="modal-body">{children}</span>
 

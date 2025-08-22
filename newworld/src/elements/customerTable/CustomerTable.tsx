@@ -16,6 +16,7 @@ import NumberPlate from '../../components/numberPlate/NumberPlate';
 import TableFilter from '../tableFilter/TableFilter';
 import { useNavigate } from 'react-router-dom';
 import type { Customer } from '../../models/Customer';
+import LocalDate from '../../components/localDate/LocalDate';
 
 export default function CustomerTable() {
 
@@ -90,7 +91,7 @@ export default function CustomerTable() {
 
     // What happens when the View button is clicked
     const viewClick = (index: number) => {
-        globalData.ShowConfirmation("Are you sure you want to view this record?", "Customer", "question", () => {
+        globalData.ShowConfirmation("Are you sure you want to edit this record?", "Customer", "question", () => {
             navigate(`/customer/${customerData[index].id}`)
         })
     }
@@ -138,6 +139,8 @@ export default function CustomerTable() {
                                     return;
                                 else if (column.name == "vehicle")
                                     return <td><NumberPlate>{item.vehicle}</NumberPlate></td>
+                                else if (column.name == "increasedate")
+                                    return <td><LocalDate value={item.increasedate}/></td>
                                 else
                                     return <td>{item[column.name as keyof typeof item]}</td>
                             })}

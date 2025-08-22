@@ -1,5 +1,4 @@
 ﻿import type { ReactNode } from 'react';
-import './Label.css';
 
 export default function Label({ children, title }: { children: ReactNode, title: string}) {
     return (
