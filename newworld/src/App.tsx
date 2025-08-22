@@ -15,57 +15,11 @@ import { globalData, UserContext } from "./helpers/globalData";
 import SpinnerLoader from "./elements/spinnerLoader/SpinnerLoader";
 import Plain from "./screens/home/plain/Plain";
 import { HandleLogout, HandleLogin } from "./helpers/signin";
+import CustomerDetails from "./screens/customer/customerDetails/CustomerDetails";
 
 function App() {
 
     const { instance, accounts } = useMsal();
-
-
-
-    //const handleLogin = async () => {
-    //    try {
-    //        await instance.loginPopup(loginRequest);
-
-    //        const account = instance.getAllAccounts()[0];
-    //        if (!account) throw new Error("No account found after login");
-
-    //        // Build a request object that includes the account
-    //        const silentRequest: SilentRequest = {
-    //            ...loginRequest,
-    //            account,
-    //            forceRefresh: true,
-    //        };
-
-    //        try {
-    //            const result = await instance.acquireTokenSilent(silentRequest);
-
-    //            await SafeFetch(
-    //                "api/StoreToken",
-    //                POST({ Token: result.accessToken, Tenant: GetSubdomain() })
-    //            );
-
-    //            // loginNavigationFunction();
-    //        } catch (silentError) {
-    //            console.warn("Silent token failed, trying popup:", silentError);
-
-    //            const popupResult = await instance.acquireTokenPopup({
-    //                ...loginRequest,
-    //                account,
-    //            });
-
-    //            await SafeFetch(
-    //                "api/StoreToken",
-    //                POST({ Token: popupResult.accessToken, Tenant: GetSubdomain() })
-    //            );
-
-    //            // loginNavigationFunction();
-    //        }
-    //    } catch (err) {
-    //        console.error("Login failed:", err);
-    //    }
-    //};
-
-
 
     return (
     <>
@@ -83,6 +37,7 @@ function App() {
                             <Route path="/dashboard" element={<Dashboard />}></Route>
                             <Route path="/home" element={<Home />}></Route>
                             <Route path="/customer" element={<Customer />}></Route>
+                            <Route path="/customer/:id" element={<CustomerDetails />}></Route>
                             <Route path="/plain" element={<Plain accounts={accounts} />}></Route>
                             <Route path="/" element={<Home />}></Route>
                     </Routes>

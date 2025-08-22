@@ -5,7 +5,7 @@ export default function Customer() {
 
     return (
         <>
-            <TitleBar title="NewWORLD"></TitleBar>
+            <TitleBar></TitleBar>
 
             <CustomerTable></CustomerTable>
         </>

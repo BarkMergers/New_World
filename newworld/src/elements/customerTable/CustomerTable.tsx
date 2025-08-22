@@ -1,16 +1,12 @@
-﻿//import type { ReactNode } from 'react';
-import Table from '../../components/table/Table'
+﻿import Table from '../../components/table/Table'
 import TableRow from '../../components/tableRow/TableRow';
 import Pagination from '../../components/pagination/Pagination';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { POST, GET, SafeFetchJson } from '../../helpers/fetch';
 import type { pagination } from '../../models/Pagination';
-
 import type { CustomerFilterOptions } from '../../models/CustomerFilterOptions';
 import type { CustomerFilterValues } from '../../models/CustomerFilterValues';
-
-
 import { useContext } from "react";
 import type { GlobalData } from '../../models/GlobalData';
 import { UserContext } from '../../helpers/globalData';
@@ -18,10 +14,12 @@ import type { ColumnData } from '../../models/ColumnData';
 import ColumnEditor, { OpenColumnEditor, LoadColumnData, SaveColumnData } from '../columEditor/ColumnEditor';
 import NumberPlate from '../../components/numberPlate/NumberPlate';
 import TableFilter from '../tableFilter/TableFilter';
-
+import { useNavigate } from 'react-router-dom';
+import type { Customer } from '../../models/Customer';
 
 export default function CustomerTable() {
 
+    const navigate = useNavigate()
 
     const pageSize = 3;
     const [customerData, setCustomerData] = useState<Customer[]>([]);
@@ -30,19 +28,10 @@ export default function CustomerTable() {
 
     const globalData: GlobalData = useContext(UserContext);
 
-    type Customer = {
-        id: number;
-        vehicle: string;
-        power: number;
-        increasedate: string;
-    };
-
     type CustomerWrapper = {
         data: Customer[];
         pagination: pagination;
     }
-
-
 
     // Load data from server
     const { data: CustomerWrapper } = useQuery({
@@ -101,9 +90,8 @@ export default function CustomerTable() {
 
     // What happens when the detail button is clicked
     const detailClick = (index: number) => {
-        alert(JSON.stringify(customerData[index]));
+        navigate(`/customer/${customerData[index].id}`)
     }
-
 
 
 

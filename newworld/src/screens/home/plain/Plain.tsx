@@ -5,7 +5,7 @@ import type { AccountInfo } from "@azure/msal-browser";
 export default function Plain({ accounts }: { accounts: AccountInfo[] }) {
     return (
         <>
-            <TitleBar title="NewWORLD"></TitleBar>
+            <TitleBar></TitleBar>
 
             <MyDetails accounts={accounts} ></MyDetails>
         </>

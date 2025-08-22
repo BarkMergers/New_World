@@ -5,7 +5,7 @@ import TitleBar from "../../../elements/titleBar/TitleBar";
 export default function Home() {
     return (
         <>
-            <TitleBar title="NewWORLD 2"></TitleBar>
+            <TitleBar></TitleBar>
 
             <StatsBar></StatsBar>
 
