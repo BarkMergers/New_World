@@ -1,12 +1,12 @@
 ﻿import { BrowserRouter, Routes, Route } from "react-router-dom";  // Link
-import { loginRequest } from './authConfig';
+
 import './App.css'
 import { useMsal } from '@azure/msal-react';
 import Dashboard from "./screens/home/dashboard/Dashboard";
 import Home from "./screens/home/home/Home";
 
-import { POST, SafeFetch } from './helpers/fetch';
-import type { SilentRequest } from "@azure/msal-browser";
+//import { POST, SafeFetch } from './helpers/fetch';
+//import type { SilentRequest } from "@azure/msal-browser";
 import NavBar from "./elements/navBar/NavBar";
 import Customer from "./screens/customer/customer/Customer";
 
@@ -14,63 +14,58 @@ import Customer from "./screens/customer/customer/Customer";
 import { globalData, UserContext } from "./helpers/globalData";
 import SpinnerLoader from "./elements/spinnerLoader/SpinnerLoader";
 import Plain from "./screens/home/plain/Plain";
+import { HandleLogout, HandleLogin } from "./helpers/signin";
 
 function App() {
 
     const { instance, accounts } = useMsal();
 
-    const getSubdomain = (): string => {
-        const x = window.location.hostname.split('.').splice(1, 1).join(".");
-        return x == "" ? "dev" : x;
-    };
 
-    const handleLogin = async () => {
-        try {
-            await instance.loginPopup(loginRequest);
 
-            const account = instance.getAllAccounts()[0];
-            if (!account) throw new Error("No account found after login");
+    //const handleLogin = async () => {
+    //    try {
+    //        await instance.loginPopup(loginRequest);
 
-            // Build a request object that includes the account
-            const silentRequest: SilentRequest = {
-                ...loginRequest,
-                account,
-                forceRefresh: true,
-            };
+    //        const account = instance.getAllAccounts()[0];
+    //        if (!account) throw new Error("No account found after login");
 
-            try {
-                const result = await instance.acquireTokenSilent(silentRequest);
+    //        // Build a request object that includes the account
+    //        const silentRequest: SilentRequest = {
+    //            ...loginRequest,
+    //            account,
+    //            forceRefresh: true,
+    //        };
 
-                await SafeFetch(
-                    "api/StoreToken",
-                    POST({ Token: result.accessToken, Tenant: getSubdomain() })
-                );
+    //        try {
+    //            const result = await instance.acquireTokenSilent(silentRequest);
 
-                // loginNavigationFunction();
-            } catch (silentError) {
-                console.warn("Silent token failed, trying popup:", silentError);
+    //            await SafeFetch(
+    //                "api/StoreToken",
+    //                POST({ Token: result.accessToken, Tenant: GetSubdomain() })
+    //            );
 
-                const popupResult = await instance.acquireTokenPopup({
-                    ...loginRequest,
-                    account,
-                });
+    //            // loginNavigationFunction();
+    //        } catch (silentError) {
+    //            console.warn("Silent token failed, trying popup:", silentError);
 
-                await SafeFetch(
-                    "api/StoreToken",
-                    POST({ Token: popupResult.accessToken, Tenant: getSubdomain() })
-                );
+    //            const popupResult = await instance.acquireTokenPopup({
+    //                ...loginRequest,
+    //                account,
+    //            });
 
-                // loginNavigationFunction();
-            }
-        } catch (err) {
-            console.error("Login failed:", err);
-        }
-    };
+    //            await SafeFetch(
+    //                "api/StoreToken",
+    //                POST({ Token: popupResult.accessToken, Tenant: GetSubdomain() })
+    //            );
 
-    const handleLogout = async () => {
-        instance.logoutPopup();
-        await SafeFetch("api/RemoveToken", POST({}));
-    };
+    //            // loginNavigationFunction();
+    //        }
+    //    } catch (err) {
+    //        console.error("Login failed:", err);
+    //    }
+    //};
+
+
 
     return (
     <>
@@ -80,7 +75,7 @@ function App() {
                 <SpinnerLoader></SpinnerLoader>
 
                 <div className="">
-                    <NavBar accounts={accounts} handleLogin={handleLogin} handleLogout={handleLogout}></NavBar>
+                        <NavBar accounts={accounts} handleLogin={() => HandleLogin(instance)} handleLogout={() => HandleLogout(instance)}></NavBar>
                 </div>
 
                 <div className="h-screen flex-grow p-4">
