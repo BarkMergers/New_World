@@ -15,7 +15,7 @@ const closeTimer = () => {
 export const globalData: GlobalData = {
     SetSpinnerVisible: (spinnerVisible: boolean) => {
 
-        if (spinnerVisible) {
+        if (spinnerVisible && eventProcessingIconTimeout == null) {
             eventProcessingIconTimeout = setTimeout(() => {
                 const dialog = document.getElementById('eventProcessingIcon') as HTMLDialogElement;
                 dialog.showModal();

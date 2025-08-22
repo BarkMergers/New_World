@@ -142,9 +142,6 @@ export default function AgentTable() {
 
 
     const detailClick = (index: number) => {
-
-        globalData.SetSpinnerVisible(true);
-
         setDetailData(JSON.stringify(data[index]));
         const dialog = document.getElementById('show_agent') as HTMLDialogElement;
         dialog.showModal();
