@@ -47,6 +47,10 @@ export default function EditCustomerDetails({ id }: {id : string | undefined }) 
                 globalData.SetSpinnerVisible(false);
 
                 if (data != null) {
+
+                    globalData.ShowMessage("Data was passed to server ok. No actual save was made", "Customer Details", "warning");
+
+
                     const dialog = document.getElementById('customer_details_saved') as HTMLDialogElement;
                     dialog.showModal();
                 }
@@ -64,10 +68,6 @@ export default function EditCustomerDetails({ id }: {id : string | undefined }) 
 
     return (
         <>
-            <Modal id="customer_details_saved" title="Admin">
-                Customer was not succesfully saved, but was passed to the server
-            </Modal>
-
             <form onSubmit={handleSubmit} className="mx-auto my-10">
                 <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs p-4">
          

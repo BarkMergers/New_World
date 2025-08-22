@@ -16,6 +16,7 @@ import SpinnerLoader from "./elements/spinnerLoader/SpinnerLoader";
 import Plain from "./screens/home/plain/Plain";
 import { HandleLogout, HandleLogin } from "./helpers/signin";
 import CustomerDetails from "./screens/customer/customerDetails/CustomerDetails";
+import Modal from "./components/modal/Modal";
 
 function App() {
 
@@ -28,8 +29,12 @@ function App() {
 
                 <SpinnerLoader></SpinnerLoader>
 
+                <Modal id="generic_message_box" title="Admin">
+                    Customer was not succesfully saved, but was passed to the server
+                </Modal>
+
                 <div className="">
-                        <NavBar accounts={accounts} handleLogin={() => HandleLogin(instance)} handleLogout={() => HandleLogout(instance)}></NavBar>
+                    <NavBar accounts={accounts} handleLogin={() => HandleLogin(instance)} handleLogout={() => HandleLogout(instance)}></NavBar>
                 </div>
 
                 <div className="h-screen flex-grow p-4">
