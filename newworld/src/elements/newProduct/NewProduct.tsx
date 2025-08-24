@@ -1,9 +1,5 @@
-﻿import { useState } from 'react';
-import Label from '../../components/label/Label';
-import Select from '../../components/select/Select';
-import Input from '../../components/input/Input';
-import Check from '../../components/check/Check';
-
+﻿import { Input, Label, Check, Select } from '../../components'
+import { useState } from 'react';
 
 export default function NewProduct() {
 

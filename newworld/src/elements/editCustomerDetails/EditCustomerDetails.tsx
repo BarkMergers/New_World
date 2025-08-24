@@ -1,8 +1,7 @@
-﻿import { useState, useEffect } from 'react';
+﻿import { Input, Label } from '../../components'
+import { useState, useEffect } from 'react';
 import { useContext } from "react";
 import { UserContext } from '../../helpers/globalData';
-import Input from '../../components/input/Input';
-import Label from '../../components/label/Label';
 import { SafeFetchJson, GET, SafeFetch, POST } from '../../helpers/fetch';
 import type { Customer } from '../../models/Customer';
 import Select from '../../components/select/Select';

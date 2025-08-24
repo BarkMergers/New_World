@@ -1,17 +1,10 @@
-﻿import { useState, useEffect } from 'react';
-
+﻿import { Input, Label, Check, Modal, Select } from '../../components'
+import { useState, useEffect } from 'react';
 import { useContext } from "react";
 import { UserContext } from '../../helpers/globalData';
-
-import Input from '../../components/input/Input';
-import Check from '../../components/check/Check';
-import Label from '../../components/label/Label';
-import Modal from '../../components/modal/Modal';
-
 import { SafeFetchJson, GET, SafeFetch, POST } from '../../helpers/fetch';
 import type { Agent } from '../../models/Agent';
 import type { AccountInfo } from "@azure/msal-browser";
-import Select from '../../components/select/Select';
 
 export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
 

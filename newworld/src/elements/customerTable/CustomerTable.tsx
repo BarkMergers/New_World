@@ -1,6 +1,4 @@
-﻿import Table from '../../components/table/Table'
-import TableRow from '../../components/tableRow/TableRow';
-import Pagination from '../../components/pagination/Pagination';
+﻿import { Table, TableRow, Pagination, NumberPlate, LocalDate } from '../../components'
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { POST, GET, SafeFetchJson } from '../../helpers/fetch';
@@ -12,11 +10,9 @@ import type { GlobalData } from '../../models/GlobalData';
 import { UserContext } from '../../helpers/globalData';
 import type { ColumnData } from '../../models/ColumnData';
 import ColumnEditor, { OpenColumnEditor, LoadColumnData, SaveColumnData } from '../columEditor/ColumnEditor';
-import NumberPlate from '../../components/numberPlate/NumberPlate';
 import TableFilter from '../tableFilter/TableFilter';
 import { useNavigate } from 'react-router-dom';
 import type { Customer } from '../../models/Customer';
-import LocalDate from '../../components/localDate/LocalDate';
 
 export default function CustomerTable() {
 

@@ -1,6 +1,4 @@
-﻿//import type { ReactNode } from 'react';
-import Table from '../../components/table/Table'
-import TableRow from '../../components/tableRow/TableRow';
+﻿import { Table, TableRow } from '../../components'
 import { useEffect, useState } from 'react';
 import TableFilter from '../tableFilter/TableFilter';
 import { useQuery } from '@tanstack/react-query';

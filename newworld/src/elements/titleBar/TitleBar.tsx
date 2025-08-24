@@ -1,4 +1,4 @@
-﻿import Avatar from '../../components/avatar/Avatar';
+﻿import { Avatar } from '../../components'
 import { FaSearch } from 'react-icons/fa';
 import { FaPaintBrush } from 'react-icons/fa';
 

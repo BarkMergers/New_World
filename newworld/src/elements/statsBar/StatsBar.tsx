@@ -1,6 +1,5 @@
-﻿import Avatar from '../../components/avatar/Avatar';
+﻿import { Avatar, StatsItem } from '../../components'
 import { FaHeart, FaBolt } from 'react-icons/fa';
-import StatsItem from '../../components/statsItem/StatsItem';
 
 export default function StatsBar() {
 
