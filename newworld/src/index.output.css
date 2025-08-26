@@ -1129,12 +1129,6 @@
   .w-full {
     width: 100%;
   }
-  .w-lg {
-    width: var(--container-lg);
-  }
-  .w-md {
-    width: var(--container-md);
-  }
   .w-xl {
     width: var(--container-xl);
   }
@@ -1244,15 +1238,6 @@
   }
   .pe-10 {
     padding-inline-end: calc(var(--spacing) * 10);
-  }
-  .pt-1 {
-    padding-top: calc(var(--spacing) * 1);
-  }
-  .pt-2 {
-    padding-top: calc(var(--spacing) * 2);
-  }
-  .pt-3 {
-    padding-top: calc(var(--spacing) * 3);
   }
   .pt-5 {
     padding-top: calc(var(--spacing) * 5);
