@@ -3,6 +3,12 @@
     themes: light --default, dark --prefersdark, aqua, retro, dim, garden, forest;
 }
 
+
+.modal {
+    scrollbar-gutter: auto !important;
+}
+
+
 html {
     scrollbar-gutter: auto !important;
 }
