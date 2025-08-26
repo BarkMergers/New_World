@@ -13,6 +13,7 @@ import ColumnEditor, { OpenColumnEditor, LoadColumnData, SaveColumnData } from '
 import TableFilter from '../tableFilter/TableFilter';
 import { useNavigate } from 'react-router-dom';
 import type { Customer } from '../../models/Customer';
+//import { Sortable } from 'react-sortablejs';
 
 export default function CustomerTable() {
 
@@ -102,15 +103,15 @@ export default function CustomerTable() {
     }, []);
     const resetList = () => {
         return [
-            { id: 0, active: true, name: "id", text: "ID" },
-            { id: 1, active: true, name: "vehicle", text: "Vehicle" },
-            { id: 3, active: true, name: "increasedate", text: "Increase Date" },
-            { id: 4, active: false, name: "fineoperator", text: "Fine Operator" },
-            { id: 5, active: false, name: "fineamount", text: "Fine Amount" },
-            { id: 6, active: false, name: "age", text: "Age" },
-            { id: 7, active: false, name: "power", text: "Power" },
-            { id: 8, active: false, name: "issuer", text: "Issuer" },
-            { id: 9, active: false, name: "status", text: "Status" }
+            { id: 0, active: true, name: "id", text: "ID", sortable: false },
+            { id: 1, active: true, name: "vehicle", text: "Vehicle", sortable: false },
+            { id: 3, active: true, name: "increasedate", text: "Increase Date", sortable: false },
+            { id: 4, active: false, name: "fineoperator", text: "Fine Operator", sortable: false },
+            { id: 5, active: false, name: "fineamount", text: "Fine Amount", sortable: false },
+            { id: 6, active: false, name: "age", text: "Age", sortable: false },
+            { id: 7, active: false, name: "power", text: "Power", sortable: false },
+            { id: 8, active: false, name: "issuer", text: "Issuer", sortable: false },
+            { id: 9, active: false, name: "status", text: "Status", sortable: false }
         ]
     }
     const [columnData, setColumnData] = useState<ColumnData[]>(LoadColumnData("liststructure_customer", resetList));
@@ -126,7 +127,7 @@ export default function CustomerTable() {
 
             <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
 
-            <Table columnData={columnData} onViewClick={viewClick}>
+            <Table<Customer> columnData={columnData} onViewClick={viewClick}>
                 {
                     customerData.map((item, index) =>
                         <TableRow index={index} onViewClick={viewClick} viewText="Edit"> 

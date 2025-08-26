@@ -12,19 +12,19 @@ export default function Table<T>({ children, columnData, onSelect, tableData, on
         onSelect?: (value1: boolean, value2: number) => void,
         tableData?: ArrayWithSelect[],
         onViewClick?: (value1: number) => void,
-        sortData: SortData<T>,
-        setSortData: React.Dispatch<React.SetStateAction<SortData<T>>>
+        sortData?: SortData<T>,
+        setSortData?: React.Dispatch<React.SetStateAction<SortData<T>>>
     }) {
 
     const internalTestSorter = (fieldName: keyof T) => {
-        if (sortData.fieldName == fieldName) {
-            setSortData({
+        if (sortData!.fieldName == fieldName) {
+            setSortData!({
                 fieldName: fieldName,
-                sortOrder: sortData.sortOrder == "ascending" ? "decending" : "ascending"
+                sortOrder: sortData!.sortOrder == "ascending" ? "decending" : "ascending"
             });
         }
         else {
-            setSortData({
+            setSortData!({
                 fieldName: fieldName,
                 sortOrder: "ascending"
             });
