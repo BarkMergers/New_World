@@ -11,6 +11,9 @@ import type { Agent } from '../../models/Agent';
 import { useContext } from "react";
 import type { GlobalData } from '../../models/GlobalData';
 import { UserContext } from '../../helpers/globalData';
+import type { SortData } from '../../models/SortData';
+
+
 
 export default function AgentTable() {
 
@@ -67,6 +70,11 @@ export default function AgentTable() {
 
 
 
+    // Add sorting
+    const [sortData, setSortData] = useState<SortData<Agent>>({ fieldName: "name", sortOrder: "ascending" });
+    useEffect(() => {
+        reloadData();
+    }, [sortData])
 
 
 
@@ -74,7 +82,7 @@ export default function AgentTable() {
 
 
 
-
+    // Setup filter data
     const [filterOptions, setFilterOptions] = useState<AgentFilterOptions>({color: [], name: [], job: [] });
     useQuery({
         queryKey: ["filter"],
@@ -94,6 +102,23 @@ export default function AgentTable() {
         output = filterValues.color == "" ? output : output.filter(agent => agent.color == filterValues.color);
         output = filterValues.job == "" ? output : output.filter(agent => agent.job == filterValues.job);
         output = filterValues.name == "" ? output : output.filter(agent => agent.name == filterValues.name);
+
+        const currentSort: SortData<Agent> = sortData;
+
+        output.sort((a, b) => {
+            const key = currentSort.fieldName;
+            const valA = currentSort.sortOrder == "ascending" ? a[key] : b[key];
+            const valB = currentSort.sortOrder == "ascending" ? b[key] : a[key];
+
+            // If it's a string, use localeCompare
+            if (typeof valA === 'string' && typeof valB === 'string') {
+                return valA.localeCompare(valB);
+            }
+
+            // If it's a number/boolean, convert to number and subtract
+            return Number(valA) - Number(valB);
+        })
+
         setData(output);
     }
     const [filterValues, setFilterValues] = useState<AgentFilterValues>({ color: "", name: "", job: "" });
@@ -105,23 +130,16 @@ export default function AgentTable() {
         setFilterValues({ ...filterValues, [name]: controlValue });
     }
 
-
-
-
-
-
-
-
     useEffect(() => {
         setColumnData(LoadColumnData("liststructure_myaccounts", resetList));
     }, []);
     const resetList = () => {
         return [
-            { id: 0, active: true, name: "name", text: "Name" },
-            { id: 1, active: true, name: "job", text: "Job" },
-            { id: 2, active: true, name: "color", text: "Color" },
-            { id: 3, active: false, name: "height", text: "Height" },
-            { id: 4, active: false, name: "age", text: "Age" },
+            { id: 0, active: true, name: "name", text: "Name", sortable: true },
+            { id: 1, active: true, name: "job", text: "Job", sortable: true },
+            { id: 2, active: true, name: "color", text: "Color", sortable: true },
+            { id: 3, active: false, name: "height", text: "Height", sortable: false },
+            { id: 4, active: false, name: "age", text: "Age", sortable: false },
         ]
     }
     const [columnData, setColumnData] = useState<ColumnData[]>(LoadColumnData("liststructure_myaccounts", resetList));
@@ -130,15 +148,10 @@ export default function AgentTable() {
         SaveColumnData("liststructure_myaccounts", columnData);
     }, [columnData])
 
-
-
-
-
-
-
     const viewClick = (index: number) => {
         globalData.ShowMessage(JSON.stringify(data[index]), "Agent Table", "success")
     }
+
 
 
 
@@ -150,7 +163,7 @@ export default function AgentTable() {
 
             <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
 
-            <Table tableData={data} columnData={columnData} onSelect={onSelect} onViewClick={viewClick}>
+            <Table<Agent> tableData={data} columnData={columnData} onSelect={onSelect} onViewClick={viewClick} setSortData={setSortData} sortData={sortData}>
                 {
                     data.map((item: Agent, index: number) =>
                         <TableRow key={`row${index}`} index={index} selected={item.selected} onSelect={onSelect} onViewClick={viewClick}>
@@ -162,12 +175,9 @@ export default function AgentTable() {
                     )
                 }
             </Table>
-
-
-
-
-
-
         </>
     )
+
+
+
 }

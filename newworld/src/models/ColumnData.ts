@@ -3,4 +3,5 @@ export type ColumnData = {
     active: boolean;
     name: string;
     text: string;
+    sortable: boolean;
 };

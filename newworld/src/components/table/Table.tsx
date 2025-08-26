@@ -2,18 +2,51 @@
 import { useRef, useEffect } from 'react';
 import type { ColumnData } from '../../models/ColumnData';
 import type { ArrayWithSelect } from '../../models/ArrayWithSelect';
+import type { SortData } from '../../models/SortData';
+import './Table.css'
 
+export default function Table<T>({ children, columnData, onSelect, tableData, onViewClick, sortData, setSortData }:
+    {
+        children: ReactNode,
+        columnData: ColumnData[],
+        onSelect?: (value1: boolean, value2: number) => void,
+        tableData?: ArrayWithSelect[],
+        onViewClick?: (value1: number) => void,
+        sortData: SortData<T>,
+        setSortData: React.Dispatch<React.SetStateAction<SortData<T>>>
+    }) {
 
-
-export default function Table({ children, columnData, onSelect, tableData, onViewClick }:
-    { children: ReactNode, columnData: ColumnData[], onSelect?: (value1: boolean, value2: number) => void, tableData?: ArrayWithSelect[], onViewClick?: (value1: number) => void }) {
+    const internalTestSorter = (fieldName: keyof T) => {
+        if (sortData.fieldName == fieldName) {
+            setSortData({
+                fieldName: fieldName,
+                sortOrder: sortData.sortOrder == "ascending" ? "decending" : "ascending"
+            });
+        }
+        else {
+            setSortData({
+                fieldName: fieldName,
+                sortOrder: "ascending"
+            });
+        }
+    }
 
     const showSelector = onSelect !== undefined;
     const showView = onViewClick !== undefined;
 
     const getHeader = () => {
         return columnData != null && columnData.map((column: ColumnData) => {
-            return column.active && <td key={column.name} >{column.text}</td>
+            if (column.sortable && setSortData !== undefined && sortData != undefined) {
+                let classList: string = "sortable";
+                if (sortData.fieldName == column.name as keyof T) {
+                    classList += sortData.sortOrder == "ascending" ? " sortDown" : " sortUp"
+                }
+                return column.active && <td className={classList} key={column.name} onClick={() => internalTestSorter!(column.name as keyof T)}>{column.text}</td>
+            }
+            else {
+                return column.active && <td key={column.name}>{column.text}</td>
+            }
+
         });
     }
 
@@ -34,9 +67,9 @@ export default function Table({ children, columnData, onSelect, tableData, onVie
         }
     }, [tableData])
 
+
     return (
         <>
-
             <div className="card card-border bg-base-200 text-base-content my-1">
                 <div className="card-body flex-row p-1">
                     <table className="table">

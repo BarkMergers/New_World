@@ -1,0 +1,25 @@
+﻿.sortable {
+    cursor: pointer;
+}
+
+.sortUp {
+    font-weight: bold;
+}
+
+.sortDown {
+    font-weight: bold;
+}
+
+td.sortDown::before {
+    content: "↓";
+    margin-right: 4px;
+    font-weight: bold;
+}
+
+td.sortUp::before {
+    content: "↑";
+    margin-right: 4px;
+    font-weight: bold;
+}
+
+
