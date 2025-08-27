@@ -7,9 +7,10 @@ export const msalConfig = {
         clientId: DAISY_FRONTEND_CLIENT_ID,
         authority: `https://login.microsoftonline.com/${DAISY_TENANT_ID}`,
         redirectUri: window.location.origin,
+        postLogoutRedirectUri: window.location.origin
     },
     cache: {
-        cacheLocation: "localStorage",
+        cacheLocation: "localStorage",  // or "localStorage" for multi-tab SSO
         storeAuthStateInCookie: false,
     },
 };

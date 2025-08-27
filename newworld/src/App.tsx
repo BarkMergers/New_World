@@ -20,15 +20,6 @@ const Plain = lazy(() => import('./screens/home/plain/Plain'));
 const CustomerDetails = lazy(() => import('./screens/customer/customerDetails/CustomerDetails'));
 const Customer = lazy(() => import('./screens/customer/customer/Customer'));
 
-//import Home from "./screens/home/home/Home";
-//import Dashboard from "./screens/home/dashboard/Dashboard";
-//import Plain from "./screens/home/plain/Plain";
-//import CustomerDetails from "./screens/customer/customerDetails/CustomerDetails";
-//import Customer from "./screens/customer/customer/Customer";
-
-
-
-
 function App() {
 
     const { instance, accounts } = useMsal();
