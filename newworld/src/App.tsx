@@ -19,6 +19,7 @@ const Dashboard = lazy(() => import('./screens/home/dashboard/Dashboard'));
 const Plain = lazy(() => import('./screens/home/plain/Plain'));
 const CustomerDetails = lazy(() => import('./screens/customer/customerDetails/CustomerDetails'));
 const Customer = lazy(() => import('./screens/customer/customer/Customer'));
+const Logout = lazy(() => import('./helpers/logout/Logout'));
 
 function App() {
 
@@ -46,7 +47,8 @@ function App() {
                         <Route path="/customer" element={<Customer />}></Route>
                         <Route path="/customer/:id" element={<CustomerDetails />}></Route>
                         <Route path="/plain" element={<Plain accounts={accounts} />}></Route>
-                        <Route path="/" element={<Home />}></Route>
+                        <Route path="/logout" element={<Logout handleLogout={() => HandleLogout(instance)} />}></Route>
+                        <Route path="/" element={<Dashboard />}></Route>
                     </Routes>
                 </div>
             </BrowserRouter>
