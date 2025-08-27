@@ -10,6 +10,14 @@
   },
   "routes": [
     {
+      "route": "/.auth/login/aad",
+      "allowedRoles": [ "anonymous" ]
+    },
+    {
+      "route": "/.auth/login/aad/callback",
+      "allowedRoles": [ "anonymous" ]
+    },
+    {
       "route": "/*",
       "allowedRoles": [ "authenticated" ]
     }
