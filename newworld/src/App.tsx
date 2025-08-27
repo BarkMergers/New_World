@@ -12,6 +12,7 @@ import { globalData, UserContext } from "./helpers/globalData";
 import SpinnerLoader from "./elements/spinnerLoader/SpinnerLoader";
 import { HandleLogout, HandleLogin } from "./helpers/signin";
 import Modal from "./components/modal/Modal";
+import { LogoutClose } from "./helpers/logout/Logout";
 
 
 const Home = lazy(() => import('./screens/home/home/Home'));
@@ -48,6 +49,7 @@ function App() {
                         <Route path="/customer/:id" element={<CustomerDetails />}></Route>
                         <Route path="/plain" element={<Plain accounts={accounts} />}></Route>
                         <Route path="/logout" element={<Logout />}></Route>
+                        <Route path="/logout-close" element={<LogoutClose />}></Route>
                         <Route path="/" element={<Dashboard />}></Route>
                     </Routes>
                 </div>
