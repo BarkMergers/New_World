@@ -5,10 +5,10 @@ export default function Logout() {
     const { instance } = useMsal();
 
     useEffect(() => {
-        instance.logoutRedirect({
-            postLogoutRedirectUri: window.location.origin,
+        instance.logoutPopup({
+            mainWindowRedirectUri: "/", // where to return user after logout
         });
     }, [instance]);
 
-    return <p>Logging out...</p>;
+    return <p>Auto Logging out...</p>;
 }
