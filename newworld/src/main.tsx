@@ -5,7 +5,7 @@ import App from './App'
 
 import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
-import { msalConfig } from './authConfig';
+import { msalConfig, loginRequest } from './authConfig';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient;
@@ -27,7 +27,7 @@ msalInstance.handleRedirectPromise().then((response) => {
         } else {
             // Not signed in yet; choose what you want here:
             // For automatic SSO, uncomment the next line:
-            // msalInstance.loginRedirect(loginRequest);
+            msalInstance.loginRedirect(loginRequest);
             //
             // Or leave it commented to show a login button in your app.
         }
