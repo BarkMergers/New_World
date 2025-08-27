@@ -5,22 +5,29 @@ export default function Logout() {
     const { instance } = useMsal();
 
     useEffect(() => {
-        instance.logoutRedirect({
-            postLogoutRedirectUri: `${window.location.origin}/logout-close`
-        });
+        async function clearAndClose() {
+            try {
+                // Clear all MSAL accounts and tokens for this app
+                const accounts = instance.getAllAccounts();
+                if (accounts.length > 0) {
+                    accounts.forEach((account) => {
+                        instance.logoutPopup({ account }); // optional: popup clears each account silently
+                    });
+                }
+                // Or simply clear cache without redirecting:
+                // instance.getTokenCache().clear();  // if using latest msal-browser API
+            } catch (err) {
+                console.warn("Logout clear failed:", err);
+            }
+
+            // Close this tab after a short delay
+            setTimeout(() => {
+                window.close();
+            }, 500);
+        }
+
+        clearAndClose();
     }, [instance]);
 
-    return <p>Auto Logging out...</p>;
-}
-
-
-export function LogoutClose() {
-    useEffect(() => {
-        // Give the logout redirect a moment, then close this tab
-        setTimeout(() => {
-            window.close();
-        }, 500);
-    }, []);
-
-    return <p>You have been logged out. This tab will close.</p>;
+    return <p>Logging out and closing...</p>;
 }
