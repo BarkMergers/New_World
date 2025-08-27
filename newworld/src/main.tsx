@@ -31,7 +31,7 @@ async function bootstrap() {
                 msalInstance.setActiveAccount(accounts[0]);
             } else {
                 // Uncomment if you want automatic login on each site
-                // await msalInstance.loginRedirect(loginRequest);
+                await msalInstance.loginRedirect(loginRequest);
             }
         }
     } catch (error) {
