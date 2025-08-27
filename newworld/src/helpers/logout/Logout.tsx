@@ -5,6 +5,9 @@ export default function Logout() {
     const { instance } = useMsal();
 
     useEffect(() => {
+
+        document.body.style.opacity = "0";
+
         async function clearAndClose() {
             try {
                 // Clear all MSAL accounts and tokens for this app
