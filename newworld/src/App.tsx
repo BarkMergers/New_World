@@ -47,7 +47,7 @@ function App() {
                         <Route path="/customer" element={<Customer />}></Route>
                         <Route path="/customer/:id" element={<CustomerDetails />}></Route>
                         <Route path="/plain" element={<Plain accounts={accounts} />}></Route>
-                        <Route path="/logout" element={<Logout handleLogout={() => HandleLogout(instance)} />}></Route>
+                        <Route path="/logout" element={<Logout />}></Route>
                         <Route path="/" element={<Dashboard />}></Route>
                     </Routes>
                 </div>

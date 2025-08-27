@@ -1,14 +1,14 @@
 import { useEffect } from "react";
+import { useMsal } from "@azure/msal-react";
 
-export default function Logout({ handleLogout }: { handleLogout: () => void } ) {
+export default function Logout() {
+    const { instance } = useMsal();
 
     useEffect(() => {
-        handleLogout();
-    }, []);
+        instance.logoutRedirect({
+            postLogoutRedirectUri: window.location.origin,
+        });
+    }, [instance]);
 
-    return (
-        <>
-            You have logged out
-        </>
-    );
+    return <p>Logging out...</p>;
 }
