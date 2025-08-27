@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/6d52e229-7b09-4772-885e-edd85950a304/v2.0"
+        }
+      }
+    }
+  }
+}
