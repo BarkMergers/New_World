@@ -7,7 +7,6 @@ export default function Logout() {
     
     useEffect(() => {
         instance.logoutRedirect();
-        alert(2);
     }, [instance]);
 
     return <p>Auto Logging out...</p>;
