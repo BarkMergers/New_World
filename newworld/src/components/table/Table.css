@@ -1,24 +1,35 @@
-﻿.sortable {
+﻿.sortable > span {
     cursor: pointer;
+    user-select: none;
 }
 
-.sortUp {
+.sortUp > span {
     font-weight: bold;
 }
 
-.sortDown {
+.sortDown > span {
     font-weight: bold;
 }
 
-td.sortDown::before {
+
+td.sortable > span::before {
+    content: "↕";
+    margin-right: 4px;
+    opacity: 0.3;
+}
+
+
+td.sortDown > span::before {
     content: "↓";
     margin-right: 4px;
     font-weight: bold;
+    opacity: 1;
 }
 
-td.sortUp::before {
+td.sortUp > span::before {
     content: "↑";
     margin-right: 4px;
+    opacity: 1;
     font-weight: bold;
 }
 
