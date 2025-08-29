@@ -17,28 +17,32 @@ const msalInstance = new PublicClientApplication(msalConfig);
 
 
 async function bootstrap() {
-    // 1. Initialize MSAL
-    await msalInstance.initialize();
 
-    // 2. Handle redirects and sign in if needed
-    try {
-        const response = await msalInstance.handleRedirectPromise();
-        if (response && response.account) {
-            msalInstance.setActiveAccount(response.account);
-        } else {
-            const accounts = msalInstance.getAllAccounts();
-            if (accounts.length > 0) {
-                msalInstance.setActiveAccount(accounts[0]);
-            } else {
-                // Uncomment if you want automatic login on each site
-                await msalInstance.loginRedirect(loginRequest);
-            }
-        }
-    } catch (error) {
-        console.error("MSAL redirect error:", error);
-    }
 
-    // 3. Render your app
+
+
+
+    //await msalInstance.initialize();
+
+
+    //try {
+    //    const response = await msalInstance.handleRedirectPromise();
+    //    if (response && response.account) {
+    //        msalInstance.setActiveAccount(response.account);
+    //    } else {
+    //        const accounts = msalInstance.getAllAccounts();
+    //        if (accounts.length > 0) {
+    //            msalInstance.setActiveAccount(accounts[0]);
+    //        } else {
+    //            // Uncomment if you want automatic login on each site
+    //            await msalInstance.loginRedirect(loginRequest);
+    //        }
+    //    }
+    //} catch (error) {
+    //    console.error("MSAL redirect error:", error);
+    //}
+
+
     createRoot(document.getElementById('root')!).render(
         <StrictMode>
             <MsalProvider instance={msalInstance}>
@@ -50,6 +54,8 @@ async function bootstrap() {
     );
 }
 
-// Call bootstrap to start the app
+
+
+
 bootstrap();
 
