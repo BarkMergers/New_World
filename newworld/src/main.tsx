@@ -5,7 +5,7 @@ import App from './App'
 
 import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
-import { msalConfig, loginRequest } from './authConfig';
+import { msalConfig } from './authConfig';  //loginRequest
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient;
