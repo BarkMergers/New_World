@@ -40,17 +40,18 @@ function App() {
                     <NavBar accounts={accounts} handleLogin={() => HandleLogin(instance)} handleLogout={() => HandleLogout(instance)}></NavBar>
                 </div>
 
-                <div className="h-screen flex-grow p-4">
-                    <Routes>
-                        <Route path="/dashboard" element={<Dashboard />}></Route>
-                        <Route path="/home" element={<Home />}></Route>
-                        <Route path="/customer" element={<Customer />}></Route>
-                        <Route path="/customer/:id" element={<CustomerDetails />}></Route>
-                        <Route path="/plain" element={<Plain accounts={accounts} />}></Route>
-                        <Route path="/logout" element={<Logout />}></Route>
-                        <Route path="/" element={<Dashboard />}></Route>
-                    </Routes>
-                </div>
+                    <div className="h-screen flex-grow p-4">
+                        <Routes>
+                            <Route path="/" element={<Dashboard />}></Route>
+
+                            <Route path="/dashboard" element={<Dashboard />}></Route>
+                            <Route path="/home" element={<Home />}></Route>
+                            <Route path="/customer" element={<Customer />}></Route>
+                            <Route path="/customer/:id" element={<CustomerDetails />}></Route>
+                            <Route path="/plain" element={<Plain accounts={accounts} />}></Route>
+                            <Route path="/logout" element={<Logout />}></Route>
+                        </Routes>
+                    </div>
             </BrowserRouter>
         </UserContext.Provider>
     </>
