@@ -20,9 +20,9 @@ export default function NavBar({ accounts, handleLogout, handleLogin }: { accoun
             }
 
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/dashboard')}>Dashboard</button>
-            <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/home')}>Home</button>
+            <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/home')}>Agents</button>
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/customer')}>Customer</button>
-            <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/plain')}>Blank</button>
+            <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/plain')}>Test form</button>
 
         </div>
     )

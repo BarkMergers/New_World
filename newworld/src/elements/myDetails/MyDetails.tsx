@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useContext } from "react";
 import { UserContext } from '../../helpers/globalData';
 import { SafeFetchJson, GET, SafeFetch, POST } from '../../helpers/fetch';
-import type { Agent } from '../../models/Agent';
 import type { AccountInfo } from "@azure/msal-browser";
+import type { OldAgent } from '../../models/AgentOld';
 
 export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
 
@@ -12,7 +12,7 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
     const globalData = useContext(UserContext);
 
     // Store the record loaded from the server
-    const [data, setData] = useState<Agent>({ color: "", job: "", name: "", selected: false});
+    const [data, setData] = useState<OldAgent>({ active: false, age: 0, agent: "", firstname: "", lastname: "", role: "", tenant: "" });
 
     // Trigger the loading of the record when the component mounts
     useEffect(() => {
@@ -50,7 +50,7 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
         setData({ ...data, [field]: value });
     }
 
-    const jobList = ["Admin", "Comms", "Dev", "Agent"];
+    const roleList = ["Admin", "Comms", "Dev", "Agent"];
 
     return (
         <>
@@ -58,32 +58,48 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
                 Save was succesful!
             </Modal>
 
-            <form onSubmit={handleSubmit} className="mx-auto my-10">
-                <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs p-4">
-         
-                    <h1>My Details...</h1>
-         
-                    <div>
-                        <Label title="Username">{data?.name || ""}</Label>
 
-                        <div className="grid grid-cols-2 gap-8">
-                            <div>
-                                <Input value={data?.color || ""} type="text" title="Color" placeholder="Your favorite colour" onChange={(e) => updateData('color', e.target.value)} />
+            {accounts.length == 1 ?
 
-                                <Select value={data?.job || ""} data={jobList} title="Job" onChange={(e) => updateData('job', e.target.value)} />
 
-                                <Input value={data?.name || ""} type="text" title="Name" placeholder="Your name" onChange={(e) => updateData('name', e.target.value)} />
 
-                                <Check value={data?.selected || false} title="Selected" onChange={(e) => updateData('selected', e.target.checked)} />
+                <form onSubmit={handleSubmit} className="mx-auto my-10">
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs p-4">
+
+                        <h1>My Details...</h1>
+
+                        <div>
+                            <Label title="Username">{data?.tenant || ""}</Label>
+
+                            <div className="grid grid-cols-2 gap-8">
+                                <div>
+
+                                    <Label title="Tenant">{data?.tenant}</Label>
+
+                                    <Input value={data?.firstname || ""} type="text" title="First name" placeholder="Your first name" onChange={(e) => updateData('firstname', e.target.value)} />
+
+                                    <Input value={data?.lastname || ""} type="text" title="Last name" placeholder="Your last name" onChange={(e) => updateData('lastname', e.target.value)} />
+
+                                    <Select value={data?.role || ""} data={roleList} title="Role" onChange={(e) => updateData('role', e.target.value)} />
+
+                                    <Input value={data?.age || ""} type="number" title="Age" placeholder="Your age" onChange={(e) => updateData('age', e.target.value)} />
+
+                                    <Check value={data?.active || false} title="Active" onChange={(e) => updateData('active', e.target.checked)} />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <button type="submit" className="btn btn-primary mx-auto mt-4">Save</button>
+                        <button type="submit" className="btn btn-primary mx-auto mt-4">Save</button>
 
-                </fieldset>
-            </form>
+                    </fieldset>
+                </form>
 
+
+                : <>
+
+                You must be logged in to test this screen. Ask if you would like a username!
+
+                </>}
 
         </>
     );
