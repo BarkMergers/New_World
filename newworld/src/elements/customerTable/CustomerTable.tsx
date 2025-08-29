@@ -13,6 +13,7 @@ import ColumnEditor, { OpenColumnEditor, LoadColumnData, SaveColumnData } from '
 import TableFilter from '../tableFilter/TableFilter';
 import { useNavigate } from 'react-router-dom';
 import type { Customer } from '../../models/Customer';
+import type { SortData } from '../../models/SortData';
 //import { Sortable } from 'react-sortablejs';
 
 export default function CustomerTable() {
@@ -39,15 +40,15 @@ export default function CustomerTable() {
     const loadCustomerData = async (newPageIndex: number) => {
         newPageIndex = newPageIndex || 0;
         globalData.SetSpinnerVisible(true);
-        const newData: CustomerWrapper = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, POST(filterValues));
+        const newData: CustomerWrapper = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, POST({ sortValues: sortData, filterValues: filterValues }));
         setCustomerData(newData.data);
         setPagination(newData.pagination);
         setPageIndex(newPageIndex);
         globalData.SetSpinnerVisible(false);
         return customerData;
     }
-    const updatePage = (pageIndex: number) => {
-        setPageIndex(pageIndex * pageSize);
+    const updatePage = (localPageIndex: number) => {
+        setPageIndex(localPageIndex * pageSize);
     }
 
 
@@ -103,10 +104,10 @@ export default function CustomerTable() {
     }, []);
     const resetList = () => {
         return [
-            { id: 0, active: true, name: "id", text: "ID", sortable: false },
-            { id: 1, active: true, name: "vehicle", text: "Vehicle", sortable: false },
-            { id: 3, active: true, name: "increasedate", text: "Increase Date", sortable: false },
-            { id: 4, active: false, name: "fineoperator", text: "Fine Operator", sortable: false },
+            { id: 0, active: true, name: "id", text: "ID", sortable: true },
+            { id: 1, active: true, name: "vehicle", text: "Vehicle", sortable: true },
+            { id: 3, active: true, name: "increasedate", text: "Increase Date", sortable: true },
+            { id: 4, active: false, name: "fineoperator", text: "Fine Operator", sortable: true },
             { id: 5, active: false, name: "fineamount", text: "Fine Amount", sortable: false },
             { id: 6, active: false, name: "age", text: "Age", sortable: false },
             { id: 7, active: false, name: "power", text: "Power", sortable: false },
@@ -121,13 +122,29 @@ export default function CustomerTable() {
 
 
 
+
+
+
+    // Add sorting
+    const [sortData, setSortData] = useState<SortData<Customer>>({ fieldName: "vehicle", sortOrder: "ascending" });
+    useEffect(() => {
+        loadCustomerData(pageIndex);
+    }, [sortData])
+
+
+
+
+
+
+
+
     return (
         <>
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
             <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
 
-            <Table<Customer> columnData={columnData} onViewClick={viewClick}>
+            <Table<Customer> columnData={columnData} onViewClick={viewClick} setSortData={setSortData} sortData={sortData}>
                 {
                     customerData.map((item, index) =>
                         <TableRow index={index} onViewClick={viewClick} viewText="Edit"> 
