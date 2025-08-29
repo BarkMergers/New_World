@@ -73,7 +73,7 @@ export default function CustomerTable() {
 
 
     // When filter is updated, reload the data
-    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ id: "", power: "", increasedate: "", vehicle: "" });
+    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "" });
     useEffect(() => {
         loadCustomerData(pageIndex);
     }, [filterValues])
