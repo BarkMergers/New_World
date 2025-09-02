@@ -30,7 +30,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "./newworld" # App source code path
           api_location: "" # Api source code path - optional
-          output_location: "build" # Built app content directory - optional
+          output_location: "dist" # Built app content directory - optional
         env:
           NODE_VERSION: '20.19.3'
           VITE_DAISY_BACKEND_CLIENT_ID: "6be0af57-8832-4ef2-adc4-060e2067bcf6"
@@ -51,4 +51,5 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_THANKFUL_PEBBLE_01E32D81E }}
           action: "close"
+
 
