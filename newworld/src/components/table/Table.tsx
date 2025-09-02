@@ -31,6 +31,8 @@ export default function Table<T>({ children, columnData, onSelect, tableData, on
         }
     }
 
+
+
     const showSelector = onSelect !== undefined;
     const showView = onViewClick !== undefined;
 
