@@ -11,6 +11,11 @@
     "test-unit": "vitest",
     "test-e2e": "playwright test"
   },
+
+  "engines": {
+    "node": "20.x"
+  },
+  
   "dependencies": {
     "@azure/msal-browser": "^4.20.0",
     "@azure/msal-react": "^3.0.18",
