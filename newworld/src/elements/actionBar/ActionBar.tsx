@@ -1,7 +1,7 @@
 ﻿import type { ActionData } from "../../models/ActionData";
 
 
-export default function ActionBar({ actionData }: { actionData: [ActionData] }) {
+export default function ActionBar({ actionData }: { actionData: ActionData[] }) {
 
 
 
