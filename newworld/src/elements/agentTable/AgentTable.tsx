@@ -178,7 +178,7 @@ export default function AgentTable() {
                     globalData.ShowMessage("No agents selected", "Agent Table", "warning")
                 else {
                     globalData.ShowConfirmation("Remove selected agents?", "Agent Table", "question", async () => {
-                        globalData.ShowMessage(`Deleting ${nameList.substring(2)}`, "Agent Table", "success")
+                        setTimeout(() => globalData.ShowMessage(`Deleting ${nameList.substring(2)}`, "Agent Table", "success"));
                     });
                 }
             }
@@ -198,7 +198,7 @@ export default function AgentTable() {
                 }
                 else {
                     globalData.ShowConfirmation("Pause selected agents?", "Agent Table", "question", async () => {
-                        globalData.ShowMessage(`Pausing ${nameList.substring(2)}`, "Agent Table", "success")
+                        setTimeout(() => globalData.ShowMessage(`Pausing ${nameList.substring(2)}`, "Agent Table", "success"));
                     });
                 }
             }
