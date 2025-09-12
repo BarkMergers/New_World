@@ -160,7 +160,9 @@ export default function AgentTable() {
         {
             icon: <FaUserPlus className="inline" />,
             tooltip: "Create agent",
-            action: () => alert("Create")
+            action: () => {
+                globalData.ShowMessage("Creating an agent is not implemented!", "Agent Table", "error")
+            }
         },
         {
             icon: <FaTrashAlt className="inline" />,
@@ -223,10 +225,6 @@ export default function AgentTable() {
         }
     ]
 
-
-
-
-
     return (
         <>
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
@@ -249,7 +247,4 @@ export default function AgentTable() {
             </Table>
         </>
     )
-
-
-
 }
