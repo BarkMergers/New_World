@@ -49,7 +49,7 @@ jobs:
         env:
           NODE_VERSION: '20.19.3'
           VITE_DAISY_BACKEND_CLIENT_ID: "6be0af57-8832-4ef2-adc4-060e2067bcf6"
-          VITE_DAISY_FRONTEND_CLIENT_ID: "ffc30b3b-4eaa-4e0f-a77f-ef3b16c9dabe"
+          VITE_DAISY_FRONTEND_CLIENT_ID: "607f01a6-fa76-4383-a22d-9dce4c60f729"
           VITE_DAISY_SERVER_ROOT: "https://newworld28function.azurewebsites.net/"
           VITE_DAISY_TENANT_ID: "6d52e229-7b09-4772-885e-edd85950a304"
 
