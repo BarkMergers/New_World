@@ -40,7 +40,7 @@ function App() {
                     <NavBar accounts={accounts} handleLogin={() => HandleLogin(instance)} handleLogout={() => HandleLogout(instance)}></NavBar>
                 </div>
 
-                    <div className="h-screen flex-grow p-4">
+                    <div className="flex h-screen flex-grow flex-col p-4">
                         <Routes>
                             <Route path="/" element={<Dashboard />}></Route>
 

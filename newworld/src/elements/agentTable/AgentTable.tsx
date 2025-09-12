@@ -12,7 +12,9 @@ import { useContext } from "react";
 import type { GlobalData } from '../../models/GlobalData';
 import { UserContext } from '../../helpers/globalData';
 import type { SortData } from '../../models/SortData';
-
+import { FaTrashAlt, FaPause, FaUserPlus, FaPlay } from 'react-icons/fa';
+import ActionBar from '../actionBar/ActionBar';
+import type { ActionData } from '../../models/ActionData';
 
 
 export default function AgentTable() {
@@ -153,6 +155,74 @@ export default function AgentTable() {
     }
 
 
+    const agentActions: ActionData[] = [
+
+        {
+            icon: <FaUserPlus className="inline" />,
+            tooltip: "Create agent",
+            action: () => alert("Create")
+        },
+        {
+            icon: <FaTrashAlt className="inline" />,
+            tooltip: "Remove agents",
+            action: () => {
+                let nameList = "";
+                data.map((item) => {
+                    if (item.selected) {
+                        nameList += `, ${item.name}`;
+                    }
+                });
+                if (nameList == "")
+                    globalData.ShowMessage("No agents selected", "Agent Table", "warning")
+                else {
+                    globalData.ShowConfirmation("Remove selected agents?", "Agent Table", "question", async () => {
+                        globalData.ShowMessage(`Deleting ${nameList.substring(2)}`, "Agent Table", "success")
+                    });
+                }
+            }
+        },
+        {
+            icon: <FaPause className="inline" />,
+            tooltip: "Disable agents",
+            action: () => {
+                let nameList = "";
+                data.map((item) => {
+                    if (item.selected) {
+                        nameList += `, ${item.name}`;
+                    }
+                });
+                if (nameList == "") {
+                    globalData.ShowMessage("No agents selected", "Agent Table", "warning")
+                }
+                else {
+                    globalData.ShowConfirmation("Pause selected agents?", "Agent Table", "question", async () => {
+                        globalData.ShowMessage(`Pausing ${nameList.substring(2)}`, "Agent Table", "success")
+                    });
+                }
+            }
+        },
+        {
+            icon: <FaPlay className="inline" />,
+            tooltip: "Restart agents",
+            action: () => {
+                let nameList = "";
+                data.map((item) => {
+                    if (item.selected) {
+                        nameList += `, ${item.name}`;
+                    }
+                });
+                if (nameList == "") {
+                    globalData.ShowMessage("No agents selected", "Agent Table", "warning")
+                }
+                else {
+                    globalData.ShowConfirmation("Restart selected agents?", "Agent Table", "question", async () => {
+                        setTimeout(() => globalData.ShowMessage(`Restarting ${nameList.substring(2)}`, "Agent Table", "success"));
+                    });
+                }
+            }
+        }
+    ]
+
 
 
 
@@ -162,6 +232,8 @@ export default function AgentTable() {
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
             <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
+
+            <ActionBar actionData={agentActions}></ActionBar>
 
             <Table<Agent> tableData={data} columnData={columnData} onSelect={onSelect} onViewClick={viewClick} setSortData={setSortData} sortData={sortData}>
                 {
