@@ -1,6 +1,7 @@
 ﻿import { Avatar } from '../../components'
 import { FaSearch } from 'react-icons/fa';
 import { FaPaintBrush } from 'react-icons/fa';
+import { GetSubdomain } from '../../helpers/signin';
 
 export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
 
@@ -12,8 +13,8 @@ export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
         <div className="card card-border bg-base-200 text-base-content my-1">
             <div className="card-body flex-row items-center px-5 py-1">
 
-                <span className="grow text-left">
-                    {title}
+                <span className="grow text-left text-lg">
+                    {title} { GetSubdomain() }
                 </span>
 
                 <span>
