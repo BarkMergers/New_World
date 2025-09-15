@@ -12,6 +12,7 @@ import { globalData, UserContext } from "./helpers/globalData";
 import SpinnerLoader from "./elements/spinnerLoader/SpinnerLoader";
 import { HandleLogout, HandleLogin } from "./helpers/signin";
 import Modal from "./components/modal/Modal";
+import TitleBar from "./elements/titleBar/TitleBar";
 
 
 const Home = lazy(() => import('./screens/home/home/Home'));
@@ -41,9 +42,11 @@ function App() {
                 </div>
 
                     <div className="flex h-screen flex-grow flex-col p-4">
+
+                        <TitleBar accounts={accounts}></TitleBar>
+
                         <Routes>
                             <Route path="/" element={<Dashboard />}></Route>
-
                             <Route path="/dashboard" element={<Dashboard />}></Route>
                             <Route path="/home" element={<Home />}></Route>
                             <Route path="/customer" element={<Customer />}></Route>

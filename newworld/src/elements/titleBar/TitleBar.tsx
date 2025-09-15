@@ -2,12 +2,17 @@
 import { FaSearch } from 'react-icons/fa';
 import { FaPaintBrush } from 'react-icons/fa';
 import { GetSubdomain } from '../../helpers/signin';
+import type { AccountInfo } from '@azure/msal-browser';
 
-export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
+export default function TitleBar({ accounts, title = "NewWorld" }: { title?: string, accounts: AccountInfo[] }) {
 
     const setTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
         document.body.setAttribute("data-theme", e.target.value);
     }
+
+
+
+
 
     return (
         <div className="card card-border bg-base-200 text-base-content my-1">
@@ -41,7 +46,7 @@ export default function TitleBar({ title = "NewWorld" }: { title?: string }) {
                     </div>
                 </span>
 
-                <Avatar size={2.5}></Avatar>
+                <Avatar size={2.5} title={accounts.length == 0 ? "" : accounts[0].name}></Avatar>
 
             </div>
         </div>

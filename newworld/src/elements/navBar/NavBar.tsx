@@ -9,20 +9,19 @@ export default function NavBar({ accounts, handleLogout, handleLogin }: { accoun
     return (
         <div className="flex flex-col">
 
-            {accounts.length > 0 ? (
-                <>
-                    <span className="text-center text-black">{accounts[0].name}</span>
-                    <button className="btn btn-primary m-1" onClick={handleLogout}>Logout</button>
-                </>
-            ) : (
-                    <button className="btn btn-primary m-1" onClick={handleLogin}>Login with Azure</button>
-            )
-            }
-
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/dashboard')}>Dashboard</button>
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/home')}>Agents</button>
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/customer')}>Customer</button>
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/plain')}>Test form</button>
+
+            {accounts.length > 0 ? (
+                <>
+                    <button className="btn btn-primary m-1" onClick={handleLogout}>Logout</button>
+                </>
+                ) : (
+                    <button className="btn btn-primary m-1" onClick={handleLogin}>Login with Azure</button>
+                )
+            }
 
         </div>
     )
