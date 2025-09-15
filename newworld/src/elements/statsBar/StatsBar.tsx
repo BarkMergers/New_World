@@ -15,7 +15,7 @@ export default function StatsBar() {
                     <span className="align-middle">2.6M</span><span className="px-2 align-top"><FaBolt className="inline" /></span>
                 </StatsItem>
   
-                <StatsItem title="Task done" footer="31 tasks remaining" bodyClass="text-green-800" icon={ <Avatar size={4} /> }>
+                <StatsItem title="Task done" footer="31 tasks remaining" bodyClass="text-green-800" icon={ <Avatar title="" size={4} /> }>
                     <span className="pe-10">86%</span>
                 </StatsItem>
            
