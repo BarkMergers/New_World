@@ -14,7 +14,6 @@ import TableFilter from '../tableFilter/TableFilter';
 import { useNavigate } from 'react-router-dom';
 import type { Customer } from '../../models/Customer';
 import type { SortData } from '../../models/SortData';
-//import { Sortable } from 'react-sortablejs';
 
 export default function CustomerTable() {
 
@@ -130,10 +129,6 @@ export default function CustomerTable() {
     useEffect(() => {
         loadCustomerData(pageIndex);
     }, [sortData])
-
-
-
-
 
 
 

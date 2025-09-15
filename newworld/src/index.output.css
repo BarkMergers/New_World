@@ -1304,6 +1304,9 @@
   .w-\[18px\] {
     width: 18px;
   }
+  .w-auto {
+    width: auto;
+  }
   .w-full {
     width: 100%;
   }
@@ -1425,6 +1428,9 @@
   }
   .px-5 {
     padding-inline: calc(var(--spacing) * 5);
+  }
+  .px-25 {
+    padding-inline: calc(var(--spacing) * 25);
   }
   .py-1 {
     padding-block: calc(var(--spacing) * 1);

@@ -6,9 +6,19 @@
 
                 {
                     Object.entries(filterData).map(([key, value]) => (
-                        <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8"><option value="">{key}...</option>
-                        {value != null && value.map((i: string) => <option key={i}>{i}</option>)}
-                    </select>
+
+
+                        value.length == 0 ? <select key={key} className="select filter-select h-8"><option>Loading...</option></select> :
+
+
+                        <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8"><option value="">Filter {key}...</option>
+                            <optgroup label="Options">{value != null && value.map((i: string) => <option key={i}>{i}</option>)} </optgroup> 
+                        </select>
+
+
+
+
+
                 ))}
 
                 {onEditColumn != undefined &&
