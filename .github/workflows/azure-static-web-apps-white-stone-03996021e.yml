@@ -48,8 +48,8 @@ jobs:
           #github_id_token: ${{ steps.idtoken.outputs.result }}
         env:
           NODE_VERSION: '20.19.3'
-          VITE_DAISY_BACKEND_CLIENT_ID: "cb3c4322-40f3-4556-a381-b8ca713d9766"
-          VITE_DAISY_FRONTEND_CLIENT_ID: "3fe0ed6d-6159-4035-a938-2423da5cb6f5"
+          VITE_DAISY_BACKEND_CLIENT_ID: "1a334698-19a7-49aa-b83c-be9a8db0f01f"
+          VITE_DAISY_FRONTEND_CLIENT_ID: "3515fbe5-4af2-4110-ad7b-0dff1971d203"
           VITE_DAISY_SERVER_ROOT: "https://newworld28function.azurewebsites.net/"
           VITE_DAISY_TENANT_ID: "6d52e229-7b09-4772-885e-edd85950a304"
 
