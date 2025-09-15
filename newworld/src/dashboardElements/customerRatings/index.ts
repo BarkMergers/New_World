@@ -1,0 +1,1 @@
+export { default as CustomerRatings } from './CustomerRatings'
