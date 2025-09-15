@@ -1,6 +1,6 @@
 import AvatarIcon from '/genericAvatar.png'
 
-export default function Avatar({ size = 16, title }: { size?: number, title: string | undefined }) {
+export default function Avatar({ size = 16, title }: { size?: number, title?: string | undefined }) {
 
     const customStyle = title == undefined || title == null ? {
         "filter": "greyscale(1)"
