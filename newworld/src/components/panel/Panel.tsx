@@ -6,7 +6,7 @@ export default function Panel({ children, span = 0 }: { children: ReactNode, spa
 
 
     const customStyle: object = {
-       "grid-column": span == undefined ? "span 1" : `span ${span}`
+       "gridColumn": span == undefined ? "span 1" : `span ${span}`
     }
 
 

@@ -8,6 +8,7 @@ import { MsalProvider } from '@azure/msal-react';
 import { loginRequest, msalConfig } from './authConfig';  //loginRequest
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SafeFetch, POST } from './helpers/fetch';
 const queryClient = new QueryClient;
 
 
@@ -29,13 +30,21 @@ async function bootstrap() {
         const response = await msalInstance.handleRedirectPromise();
         if (response && response.account) {
             msalInstance.setActiveAccount(response.account);
+  
+            if (response) {
+                const accessToken = response.accessToken;
+                await SafeFetch("api/StoreToken", POST({ Token: accessToken }));
+            }
         } else {
+
             const accounts = msalInstance.getAllAccounts();
             if (accounts.length > 0) {
                 msalInstance.setActiveAccount(accounts[0]);
             } else {
+
                 // Uncomment if you want automatic login on each site
                 await msalInstance.loginRedirect(loginRequest);
+
             }
         }
     } catch (error) {
@@ -58,4 +67,5 @@ async function bootstrap() {
 
 
 bootstrap();
+
 

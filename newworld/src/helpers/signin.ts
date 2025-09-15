@@ -2,12 +2,6 @@ import { loginRequest } from "../authConfig";
 import { SafeFetch, POST } from "./fetch";
 import { type IPublicClientApplication, type SilentRequest } from "@azure/msal-browser";
 
-
-//import { IPublicClientApplication, SilentRequest } from "@azure/msal-browser";
-//import { loginRequest } from "./authConfig";
-//import { SafeFetch, POST, GetSubdomain } from "./utils";
-
-
 export const GetSubdomain = (): string => {
     const x = window.location.hostname.split('.').splice(1, 1).join(".");
     return x == "" ? "dev" : x;
@@ -17,9 +11,6 @@ export const HandleLogout = async (instance: IPublicClientApplication) => {
     instance.logoutPopup();
     await SafeFetch("api/RemoveToken", POST({}));
 };
-
-
-
 
 export const HandleLogin = async (instance: IPublicClientApplication) => {
     try {
@@ -39,6 +30,9 @@ export const HandleLogin = async (instance: IPublicClientApplication) => {
             account,
             forceRefresh: false, // don't force refresh unless necessary
         };
+
+
+        alert(1);
 
         try {
             const result = await instance.acquireTokenSilent(silentRequest);
@@ -62,6 +56,10 @@ export const HandleLogin = async (instance: IPublicClientApplication) => {
                 POST({ Token: popupResult.accessToken, Tenant: GetSubdomain() })
             );
         }
+
+            alert(2);
+
+
     } catch (err) {
         console.error("Login failed:", err);
     }

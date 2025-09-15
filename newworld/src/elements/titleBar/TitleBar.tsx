@@ -10,16 +10,12 @@ export default function TitleBar({ accounts, title = "NewWorld" }: { title?: str
         document.body.setAttribute("data-theme", e.target.value);
     }
 
-
-
-
-
     return (
         <div className="card card-border bg-base-200 text-base-content my-1">
             <div className="card-body flex-row items-center px-5 py-1">
 
                 <span className="grow text-left text-lg">
-                    {title} { GetSubdomain() }
+                    {title}: { GetSubdomain() }
                 </span>
 
                 <span>
@@ -46,7 +42,7 @@ export default function TitleBar({ accounts, title = "NewWorld" }: { title?: str
                     </div>
                 </span>
 
-                <Avatar size={2.5} title={accounts.length == 0 ? "" : accounts[0].name}></Avatar>
+                <Avatar size={2.5} title={accounts.length == 0 ? null : accounts[0].name}></Avatar>
 
             </div>
         </div>
