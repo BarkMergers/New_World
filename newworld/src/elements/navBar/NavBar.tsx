@@ -10,6 +10,8 @@ export default function NavBar({ accounts, handleLogout, handleLogin }: { accoun
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/dashboard')}>Dashboard</button>
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/home')}>Agents</button>
             <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/customer')}>Customer</button>
+            <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/account')}>Accounts</button>
+            <button className="btn btn-primary m-1" type="button" onClick={() => navigate('/asset')}>Assets</button>
             {accounts.length > 0 ? (
                 <>
                     <button className="btn btn-primary m-1" onClick={handleLogout}>Logout</button>

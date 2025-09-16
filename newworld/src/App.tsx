@@ -1,19 +1,15 @@
-﻿import { BrowserRouter, Routes, Route } from "react-router-dom";  // Link
+﻿import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {  lazy } from 'react';
 import './App.css'
 import { useMsal } from '@azure/msal-react';
-
-//import { POST, SafeFetch } from './helpers/fetch';
-//import type { SilentRequest } from "@azure/msal-browser";
 import NavBar from "./elements/navBar/NavBar";
-
-
 import { globalData, UserContext } from "./helpers/globalData";
 import SpinnerLoader from "./elements/spinnerLoader/SpinnerLoader";
 import { HandleLogout, HandleLogin } from "./helpers/signin";
 import Modal from "./components/modal/Modal";
 import TitleBar from "./elements/titleBar/TitleBar";
-
+import Account from "./screens/account/Account";
+import Asset from "./screens/asset/Asset";
 
 const Home = lazy(() => import('./screens/home/home/Home'));
 const Dashboard = lazy(() => import('./screens/home/dashboard/Dashboard'));
@@ -29,7 +25,7 @@ function App() {
     return (
     <>
         <UserContext.Provider value={globalData}>
-                <BrowserRouter>
+            <BrowserRouter>
 
                 <SpinnerLoader></SpinnerLoader>
 
@@ -52,6 +48,8 @@ function App() {
                         <Route path="/customer" element={<Customer />}></Route>
                         <Route path="/customer/:id" element={<CustomerDetails />}></Route>
                         <Route path="/plain" element={<Plain accounts={accounts} />}></Route>
+                        <Route path="/account" element={<Account />}></Route>
+                        <Route path="/asset" element={<Asset />}></Route>
                         <Route path="/logout" element={<Logout />}></Route>
                     </Routes>
                 </div>

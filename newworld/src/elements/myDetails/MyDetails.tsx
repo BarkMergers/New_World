@@ -20,7 +20,7 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
         if (accounts.length == 1)
             getAgent();
         else
-            setTimeout(ForceLogin);
+            ForceLogin();
     }, [accounts]);
 
     // Load from the server - an Async function
