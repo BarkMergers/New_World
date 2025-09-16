@@ -1,3 +1,5 @@
+import { ForceLogin } from "./msal";
+
 const URLROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
 
 export const POST = function(data: object) {
@@ -36,13 +38,11 @@ export const SafeFetch = async function (url: string, data: object) {
     }
     catch (ex) {
         switch (response == null ? null : response.status) {
-
             case 406:
                 {
-                    alert(`${ex}: at request '${URLROOT}${url}'`);
+                    ForceLogin();
                     return null;
                 }
-
             default:
                 {
                     alert(`${ex}: at request '${URLROOT}${url}'`);

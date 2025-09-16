@@ -3,8 +3,8 @@ import type { AccountInfo } from "@azure/msal-browser";
 
 export default function Plain({ accounts }: { accounts: AccountInfo[] }) {
     return (
-        <>
-            <MyDetails accounts={accounts} ></MyDetails>
-        </>
+        <div className="overflow-auto">
+            <MyDetails accounts={accounts}></MyDetails>
+        </div>
     )
 }

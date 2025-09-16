@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function EditCustomerDetails({ id }: {id : string | undefined }) {
 
-
     // Access global functions
     const globalData = useContext(UserContext);
 
@@ -20,12 +19,10 @@ export default function EditCustomerDetails({ id }: {id : string | undefined }) 
     // Store the record loaded from the server
     const [data, setData] = useState<Customer>({ id: 0, increasedate: "", power: 0, vehicle: "", age: 0, fineamount: 0, fineoperator: "", status: "", issuer: "" });
 
-
     // Trigger the loading of the record when the component mounts
     useEffect(() => {
         getCustomerDetails();
     }, [id]);
-
 
     // Load from the server - an Async function
     const getCustomerDetails = async () => {
@@ -35,9 +32,7 @@ export default function EditCustomerDetails({ id }: {id : string | undefined }) 
         globalData.SetSpinnerVisible(false);
     }
 
-
     // Submit the record held in 'data' to the server
-
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         globalData.ShowConfirmation("Are you sure you want to save this record?", "Customer Details", "question", async () => {
@@ -46,9 +41,7 @@ export default function EditCustomerDetails({ id }: {id : string | undefined }) 
     }
 
     const processSave = async () => {
-
         globalData.SetSpinnerVisible(true);
-
         await SafeFetch('api/SaveCustomerDetails', POST(data))
             .then((data) => {
                 globalData.SetSpinnerVisible(false);
@@ -59,22 +52,18 @@ export default function EditCustomerDetails({ id }: {id : string | undefined }) 
         });
     }
 
-
-
     // Update the 'data' record held in the useState
     const updateData = (field: string, value: string | number | boolean) => {
         setData({ ...data, [field]: value });
     }
 
-
     const leaveScreen = () => {
         navigate("/customer")
     }
 
-
     return (
         <>
-            <form onSubmit={handleSubmit} className="mx-auto my-10">
+            <form onSubmit={handleSubmit} className="mx-auto">
                 <fieldset className="fieldset bg-base-200 border-base-300 rounded-box m-auto w-xl p-4">
          
                     <h1>Customer Details</h1>

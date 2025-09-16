@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
     }
 
     return (
-        <div className="grid gap-3 py-2" style={gridLayout}>
+        <div className="grid gap-3 overflow-auto py-2" style={gridLayout}>
 
             <Panel span={2}>
                 <SalesRatios></SalesRatios>

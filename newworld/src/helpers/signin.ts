@@ -1,6 +1,7 @@
-import { loginRequest } from "../authConfig";
+import { loginRequest } from "./authConfig";
 import { SafeFetch, POST } from "./fetch";
 import { type IPublicClientApplication, type SilentRequest } from "@azure/msal-browser";
+
 
 export const GetSubdomain = (): string => {
     const x = window.location.hostname.split('.').splice(1, 1).join(".");

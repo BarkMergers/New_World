@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useContext } from "react";
 import { UserContext } from '../../helpers/globalData';
 import { SafeFetchJson, GET, SafeFetch, POST } from '../../helpers/fetch';
+import { ForceLogin } from '../../helpers/msal'
 import type { AccountInfo } from "@azure/msal-browser";
 import type { OldAgent } from '../../models/AgentOld';
 
@@ -18,12 +19,14 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
     useEffect(() => {
         if (accounts.length == 1)
             getAgent();
+        else
+            setTimeout(ForceLogin);
     }, [accounts]);
 
     // Load from the server - an Async function
     const getAgent = async () => {
         globalData.SetSpinnerVisible(true);
-        const data = await SafeFetchJson(`api/GetAgent/${accounts[0].username}`, GET());
+        const data = await SafeFetchJson(`api/GetAgentDetails/${accounts[0].username}`, GET());
         setData(data);
         globalData.SetSpinnerVisible(false);
     }
@@ -52,24 +55,27 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
 
     const roleList = ["Admin", "Comms", "Dev", "Agent"];
 
+
+
+
+
+
+
+
     return (
-        <>
+        <div className="m-auto w-full">
             <Modal id="my_save" title="Admin">
                 Save was succesful!
             </Modal>
 
-
-            {accounts.length == 1 ?
-
-
-
-                <form onSubmit={handleSubmit} className="mx-auto my-10">
-                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs p-4">
+          
+                <form onSubmit={handleSubmit}>
+                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box m-auto w-xs p-4">
 
                         <h1>My Details...</h1>
 
                         <div>
-                            <Label title="Username">{data?.tenant || ""}</Label>
+                            <Label title="Username">{data?.agent || ""}</Label>
 
                             <div className="grid grid-cols-2 gap-8">
                                 <div>
@@ -95,12 +101,6 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
                 </form>
 
 
-                : <>
-
-                You must be logged in to test this screen. Ask if you would like a username!
-
-                </>}
-
-        </>
+        </div>
     );
 }

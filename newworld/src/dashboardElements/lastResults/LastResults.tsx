@@ -2,6 +2,9 @@ import { useState } from "react";
 import { Table, TableRow } from "../../components";
 import type { ColumnData } from "../../models/ColumnData";
 
+import { useContext } from "react";
+import type { GlobalData } from '../../models/GlobalData';
+import { UserContext } from '../../helpers/globalData';
 
 type LastResultType = {
     name: string,
@@ -12,6 +15,9 @@ type LastResultType = {
 
 
 export default function LastResults() {
+
+
+    const globalData: GlobalData = useContext(UserContext);
 
     const columnData: ColumnData[] = 
     [
@@ -47,21 +53,32 @@ export default function LastResults() {
         );
     }
 
+
+
+    const viewClick = (index: number) => {
+        globalData.ShowMessage(JSON.stringify(data[index]), "Last Result Account", "success")
+    }
+
+
+
     return (
-
-        <Table<LastResultType> tableData={data} columnData={columnData} onSelect={onSelect}>
-            {
-                data.map((item: LastResultType, index: number) =>
-                    <TableRow key={`row${index}`} index={index} selected={item.selected} onSelect={onSelect}>
-                        {columnData != null && columnData.map((column: ColumnData, index: number) => {
-                            if (column.active)
-                                return <td key={index}>{item[column.name as keyof typeof item]}</td>
-                        })}
-                    </TableRow>
-                )
-            }
-        </Table>
-
+        <>
+            <div className="text-center">
+                Last Results
+            </div>
+            <Table<LastResultType> tableData={data} columnData={columnData} onSelect={onSelect} onViewClick={viewClick}>
+                {
+                    data.map((item: LastResultType, index: number) =>
+                        <TableRow key={`row${index}`} index={index} selected={item.selected} onSelect={onSelect} onViewClick={viewClick} onViewStyle="slim" >
+                            {columnData != null && columnData.map((column: ColumnData, index: number) => {
+                                if (column.active)
+                                    return <td key={index}>{item[column.name as keyof typeof item]}</td>
+                            })}
+                        </TableRow>
+                    )
+                }
+            </Table>       
+        </>
     )
 }
 

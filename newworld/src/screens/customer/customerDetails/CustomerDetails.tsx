@@ -7,8 +7,8 @@ export default function CustomerDetails() {
     const { id } = useParams();
 
     return (
-        <>
-            <EditCustomerDetails id={id} ></EditCustomerDetails>
-        </>
+        <div className="overflow-auto">
+            <EditCustomerDetails id={id}></EditCustomerDetails>
+        </div>
     );
 }

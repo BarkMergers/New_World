@@ -2,29 +2,18 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App'
-
-import { PublicClientApplication } from '@azure/msal-browser';
 import { MsalProvider } from '@azure/msal-react';
-import { loginRequest, msalConfig } from './authConfig';  //loginRequest
+import { loginRequest } from './helpers/authConfig';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeFetch, POST } from './helpers/fetch';
+
 const queryClient = new QueryClient;
-
-
-const msalInstance = new PublicClientApplication(msalConfig);
-
-
-
+import { msalInstance } from "./helpers/msal";
 
 async function bootstrap() {
 
-
-
-
-
     await msalInstance.initialize();
-
 
     try {
         const response = await msalInstance.handleRedirectPromise();
@@ -41,16 +30,13 @@ async function bootstrap() {
             if (accounts.length > 0) {
                 msalInstance.setActiveAccount(accounts[0]);
             } else {
-
                 // Uncomment if you want automatic login on each site
                 await msalInstance.loginRedirect(loginRequest);
-
             }
         }
     } catch (error) {
         console.error("MSAL redirect error:", error);
     }
-
 
     createRoot(document.getElementById('root')!).render(
         <StrictMode>
@@ -63,9 +49,4 @@ async function bootstrap() {
     );
 }
 
-
-
-
 bootstrap();
-
-
