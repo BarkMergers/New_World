@@ -17,7 +17,7 @@ type Pagination = {
 
 
 
-export default function Pagination({ data, updatePage }: { data: Pagination | undefined, updatePage: (value1: number) => void }) {
+export default function Pagination({ data, updatePage }: { data: Pagination, updatePage: (value1: number) => void }) {
 
     const internalUpdatePage = (index: number) => {
         if (index < 0)
