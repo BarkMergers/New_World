@@ -78,9 +78,9 @@ export default function Table<T>({ children, columnData, onSelect, tableData, on
 
                         <thead>
                             <tr>
-                                {showSelector && <td><input ref={chkSelectAll} type="checkbox" onChange={(e) => onSelect!(e.target.checked, -1)} name="itemSelector" className="h-5 w-5 align-middle"></input></td>}
+                                {showSelector && <td className="rounded-l-lg"><input ref={chkSelectAll} type="checkbox" onChange={(e) => onSelect!(e.target.checked, -1)} name="itemSelector" className="h-5 w-5 align-middle"></input></td>}
                                 {getHeader()}
-                                {showView && <td></td>}
+                                {showView && <td className="rounded-r-lg"></td>}
                             </tr>
                         </thead>
 
