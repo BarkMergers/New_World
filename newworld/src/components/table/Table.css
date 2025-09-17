@@ -39,5 +39,7 @@ thead {
     position: sticky;
     top: 5px;
     z-index: 10000;
-    background: white;
+    border-radius: var(--radius-box);
+    background-color: var(--root-bg, var(--color-base-100));
 }
+

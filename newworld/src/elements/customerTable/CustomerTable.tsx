@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { POST, GET, SafeFetchJson } from '../../helpers/fetch';
-import type { pagination } from '../../models/Pagination';
 import type { CustomerFilterOptions } from '../../models/CustomerFilterOptions';
 import type { CustomerFilterValues } from '../../models/CustomerFilterValues';
 import { useContext } from "react";
@@ -15,40 +14,69 @@ import { useNavigate } from 'react-router-dom';
 import type { Customer } from '../../models/Customer';
 import type { SortData } from '../../models/SortData';
 
+
+type Pagination = {
+    currentPage: number;
+    pageSize: number;
+    totalPages: number;
+    totalItems: number;
+    hasMore?: boolean;
+};
+
+type CustomerWrapper = {
+    data: Customer[];
+    pagination: Pagination;
+};
+
+
 export default function CustomerTable() {
 
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
     const pageSize = 3;
-    const [customerData, setCustomerData] = useState<Customer[]>([]);
     const [pageIndex, setPageIndex] = useState(0);
-    const [pagination, setPagination] = useState<pagination>({ pageId: 0, totalPages: 0});
-
     const globalData: GlobalData = useContext(UserContext);
 
-    type CustomerWrapper = {
-        data: Customer[];
-        pagination: pagination;
+
+
+    // Add sorting
+    const [sortData, setSortData] = useState<SortData<Customer>>({ fieldName: "vehicle", sortOrder: "ascending" });
+
+
+
+    // When filter is updated, reload the data
+    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "" });
+    const applyFilter = (controlValue: string, name: string) => {
+        if (name.endsWith("List"))
+            name = name.substring(0, name.length - 4);
+        setFilterValues({ ...filterValues, [name]: controlValue });
     }
 
-    // Load data from server
-    const { data: CustomerWrapper } = useQuery({
-        queryKey: ["todo", pageIndex],
-        queryFn: () => loadCustomerData(pageIndex)
+
+
+
+    // Get the data from the API in a tanstack friendly way
+    const loadAssetData = async (
+        pageIndex: number,
+        pageSize: number,
+        sortData: SortData<Customer>,
+        filterValues: CustomerFilterValues
+    ): Promise<CustomerWrapper> => {
+        return SafeFetchJson(
+            `api/GetCustomer/${pageIndex}/${pageSize}`,
+            POST({ sortValues: sortData, filterValues: filterValues })
+        );
+    };
+
+    const { data: assetWrapper } = useQuery({
+        queryKey: ["assets", pageIndex, sortData, filterValues],
+        queryFn: () => loadAssetData(pageIndex, pageSize, sortData, filterValues),
+        staleTime: 5 * 60 * 1000, // cache for 5 minutes
     });
-    const loadCustomerData = async (newPageIndex: number) => {
-        newPageIndex = newPageIndex || 0;
-        globalData.SetSpinnerVisible(true);
-        const newData: CustomerWrapper = await SafeFetchJson(`api/GetCustomer/${newPageIndex}/${pageSize}`, POST({ sortValues: sortData, filterValues: filterValues }));
-        setCustomerData(newData.data);
-        setPagination(newData.pagination);
-        setPageIndex(newPageIndex);
-        globalData.SetSpinnerVisible(false);
-        return customerData;
-    }
-    const updatePage = (localPageIndex: number) => {
-        setPageIndex(localPageIndex * pageSize);
-    }
+
+
+    // Use React Query data directly
+    const customerData = assetWrapper?.data ?? [];
+    const pagination = assetWrapper?.pagination;
 
 
 
@@ -65,24 +93,6 @@ export default function CustomerTable() {
         setFilterOptions(data);
         return data;
     }
-
-
-
-
-
-
-    // When filter is updated, reload the data
-    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "" });
-    useEffect(() => {
-        loadCustomerData(pageIndex);
-    }, [filterValues])
-    const applyFilter = (controlValue: string, name: string) => {
-        if (name.endsWith("List"))
-            name = name.substring(0, name.length - 4);
-        setFilterValues({ ...filterValues, [name]: controlValue });
-    }
-
-
 
 
 
@@ -124,12 +134,6 @@ export default function CustomerTable() {
 
 
 
-    // Add sorting
-    const [sortData, setSortData] = useState<SortData<Customer>>({ fieldName: "vehicle", sortOrder: "ascending" });
-    useEffect(() => {
-        loadCustomerData(pageIndex);
-    }, [sortData])
-
 
 
 
@@ -158,7 +162,10 @@ export default function CustomerTable() {
                 }
             </Table>
 
-            <Pagination data={pagination} updatePage={updatePage}></Pagination>
+
+
+            {typeof pagination != 'undefined' && <Pagination data={pagination} updatePage={setPageIndex}></Pagination>}
+
         </>
     )
 }

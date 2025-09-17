@@ -74,7 +74,7 @@ export default function Table<T>({ children, columnData, onSelect, tableData, on
         <>
             <div className="card card-border bg-base-200 text-base-content my-1 flex-1 overflow-auto">
                 <div className="card-body inline flex-row p-1">
-                    <table className="table">
+                    <table className="table border-separate border-spacing-0">
 
                         <thead>
                             <tr>
