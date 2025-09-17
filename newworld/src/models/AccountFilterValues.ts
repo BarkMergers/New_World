@@ -1,4 +1,5 @@
 export type AccountFilterValues = {
-    recordId: string;
     accountName: string;
+    registrationNumber: string;
+    vatRegNo: string;
 }

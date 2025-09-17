@@ -11,9 +11,9 @@ import { UserContext } from '../../helpers/globalData';
 import type { ColumnData } from '../../models/ColumnData';
 import ColumnEditor, { OpenColumnEditor, LoadColumnData, SaveColumnData } from '../columEditor/ColumnEditor';
 import TableFilter from '../tableFilter/TableFilter';
-//import { useNavigate } from 'react-router-dom';
 import type { SortData } from '../../models/SortData';
 import type { Asset } from '../../models/Asset';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
 export default function AccountTable() {
 
@@ -44,6 +44,8 @@ export default function AccountTable() {
         setPagination(newData.pagination);
         setPageIndex(newPageIndex);
         globalData.SetSpinnerVisible(false);
+
+
         return assetData;
     }
     const updatePage = (localPageIndex: number) => {
@@ -55,13 +57,13 @@ export default function AccountTable() {
 
 
     // Load filter options from server
-    const [filterOptions] = useState<AssetFilterOptions>({ assetName: [], assetTypeId: [], registrationNumber: [] });
+    const [filterOptions] = useState<AssetFilterOptions>({ assetName: "", assetTypeId: "", registrationNumber: "" });
     //useQuery({
     //    queryKey: ["accountfilter"],
     //    queryFn: () => getAccountFilter()
     //});
     //const getAccountFilter = async () => {
-    //    const data = await SafeFetchJson(`api/GetAccountFilter`, GET());
+    //    const data = await SafeFetchJson(`api/GetAssetFilter`, GET());
     //    setFilterOptions(data);
     //    return data;
     //}setFilterOptions
@@ -105,14 +107,16 @@ export default function AccountTable() {
     const resetList = () => {
         return [
             { id: 0, active: true, name: "recordId", text: "Record ID", sortable: true },
-            { id: 1, active: true, name: "accountName", text: "Account Name", sortable: true },
-            { id: 3, active: true, name: "vatRegNo", text: "VAT", sortable: true },
-            { id: 4, active: true, name: "operationalUIAccess", text: "Operational UI Access", sortable: true },
-            { id: 5, active: false, name: "registrationNumber", text: "Reg no", sortable: true },
-            { id: 6, active: false, name: "accountClassId", text: "Account Class", sortable: true },
-            { id: 7, active: false, name: "lastUpdateMessageDateTime", text: "Last Updated", sortable: true },
-            { id: 8, active: false, name: "archivedDateTime", text: "Archived", sortable: true },
-            { id: 9, active: false, name: "enforceTermsAndConditions", text: "Enforce T&C", sortable: true },
+            { id: 1, active: true, name: "registrationNumber", text: "Reg No", sortable: true },
+            { id: 2, active: true, name: "assetTypeId", text: "Asset Type", sortable: true },
+            { id: 3, active: true, name: "assetName", text: "Asset Name", sortable: true },
+            { id: 4, active: false, name: "customerId", text: "Customer ID", sortable: false },
+            { id: 5, active: false, name: "customerDepotId", text: "Customer Depot", sortable: false },
+            { id: 6, active: false, name: "fleetManagerId", text: "Fleet Manager", sortable: false },
+            { id: 7, active: false, name: "makeId", text: "Make", sortable: false },
+            { id: 8, active: false, name: "modelId", text: "Model", sortable: false },
+            { id: 9, active: false, name: "derivative", text: "Derivative", sortable: false },
+            { id: 10, active: false, name: "assetWeight", text: "Asset Weight", sortable: false }
         ]
     }
     const [columnData, setColumnData] = useState<ColumnData[]>(LoadColumnData("liststructure_asset", resetList));
@@ -145,8 +149,13 @@ export default function AccountTable() {
                     assetData.map((item, index) =>
                         <TableRow index={index} onViewClick={viewClick} viewText="Edit"> 
                             {columnData != null && columnData.map((column: ColumnData) => {
-                                if (column.active)
-                                    return <td>{item[column.name as keyof typeof item]}</td>
+                                if (column.active) {
+
+                                    if (typeof item[column.name as keyof typeof item] == "boolean")
+                                        return <td className="text-center"> {item[column.name as keyof typeof item] ? <FaCheck className="inline" /> : <FaTimes className="inline" />} </td>
+                                    else
+                                        return <td>{item[column.name as keyof typeof item]}</td>
+                                }
                             })}
                         </TableRow>
                     )

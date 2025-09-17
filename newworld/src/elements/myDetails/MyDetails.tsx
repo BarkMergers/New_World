@@ -55,51 +55,42 @@ export default function MyDetails({ accounts }: { accounts: AccountInfo[] }) {
 
     const roleList = ["Admin", "Comms", "Dev", "Agent"];
 
-
-
-
-
-
-
-
     return (
         <div className="m-auto w-full">
             <Modal id="my_save" title="Admin">
                 Save was succesful!
             </Modal>
 
-          
-                <form onSubmit={handleSubmit}>
-                    <fieldset className="fieldset bg-base-200 border-base-300 rounded-box m-auto w-xs p-4">
+            <form onSubmit={handleSubmit}>
+                <fieldset className="fieldset bg-base-200 border-base-300 rounded-box m-auto w-xs p-4">
 
-                        <h1>My Details...</h1>
+                    <h1>My Details...</h1>
 
-                        <div>
-                            <Label title="Username">{data?.agent || ""}</Label>
+                    <div>
+                        <Label title="Username">{data?.agent || ""}</Label>
 
-                            <div className="grid grid-cols-2 gap-8">
-                                <div>
+                        <div className="grid grid-cols-2 gap-8">
+                            <div>
 
-                                    <Label title="Tenant">{data?.tenant}</Label>
+                                <Label title="Tenant">{data?.tenant}</Label>
 
-                                    <Input value={data?.firstname || ""} type="text" title="First name" placeholder="Your first name" onChange={(e) => updateData('firstname', e.target.value)} />
+                                <Input value={data?.firstname || ""} type="text" title="First name" placeholder="Your first name" onChange={(e) => updateData('firstname', e.target.value)} />
 
-                                    <Input value={data?.lastname || ""} type="text" title="Last name" placeholder="Your last name" onChange={(e) => updateData('lastname', e.target.value)} />
+                                <Input value={data?.lastname || ""} type="text" title="Last name" placeholder="Your last name" onChange={(e) => updateData('lastname', e.target.value)} />
 
-                                    <Select value={data?.role || ""} data={roleList} title="Role" onChange={(e) => updateData('role', e.target.value)} />
+                                <Select value={data?.role || ""} data={roleList} title="Role" onChange={(e) => updateData('role', e.target.value)} />
 
-                                    <Input value={data?.age || ""} type="number" title="Age" placeholder="Your age" onChange={(e) => updateData('age', e.target.value)} />
+                                <Input value={data?.age || ""} type="number" title="Age" placeholder="Your age" onChange={(e) => updateData('age', e.target.value)} />
 
-                                    <Check value={data?.active || false} title="Active" onChange={(e) => updateData('active', e.target.checked)} />
-                                </div>
+                                <Check value={data?.active || false} title="Active" onChange={(e) => updateData('active', e.target.checked)} />
                             </div>
                         </div>
+                    </div>
 
-                        <button type="submit" className="btn btn-primary mx-auto mt-4">Save</button>
+                    <button type="submit" className="btn btn-primary mx-auto mt-4">Save</button>
 
-                    </fieldset>
-                </form>
-
+                </fieldset>
+            </form>
 
         </div>
     );
