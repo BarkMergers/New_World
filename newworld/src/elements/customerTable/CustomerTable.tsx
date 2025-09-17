@@ -54,7 +54,6 @@ export default function CustomerTable() {
 
 
 
-    // Get the data from the API in a tanstack friendly way
     const loadAssetData = async (
         pageIndex: number,
         pageSize: number,
@@ -63,15 +62,18 @@ export default function CustomerTable() {
     ): Promise<CustomerWrapper> => {
         return SafeFetchJson(
             `api/GetCustomer/${pageIndex}/${pageSize}`,
-            POST({ sortValues: sortData, filterValues: filterValues })
+            POST({ sortValues: sortData, filterValues: filterValues }),
+            globalData
         );
     };
 
     const { data: assetWrapper } = useQuery({
         queryKey: ["assets", pageIndex, sortData, filterValues],
         queryFn: () => loadAssetData(pageIndex, pageSize, sortData, filterValues),
-        staleTime: 5 * 60 * 1000, // cache for 5 minutes
+        staleTime: 5 * 60 * 1000
     });
+
+
 
 
     // Use React Query data directly

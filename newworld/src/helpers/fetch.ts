@@ -1,3 +1,4 @@
+import type { GlobalData } from "../models/GlobalData";
 import { ForceLogin } from "./msal";
 
 const URLROOT = import.meta.env.VITE_DAISY_SERVER_ROOT;
@@ -17,8 +18,11 @@ export const GET = function () {
     }
 }
 
-export const SafeFetchJson = async function (url: string, data: object) {
+export const SafeFetchJson = async function (url: string, data: object, globalData: GlobalData | undefined) {
+    globalData?.SetSpinnerVisible(true);
     const response = await SafeFetch(url, data);
+    globalData?.SetSpinnerVisible(false);
+
     if (response != null) {
         return await response.json();
     }

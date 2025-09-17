@@ -49,6 +49,9 @@ export default function AccountTable() {
         sortData: SortData<Account>,
         filterValues: AccountFilterValues
     ): Promise<AccountWrapper> => {
+
+        
+
         return SafeFetchJson(
             `api/GetAccount/${pageIndex}/${pageSize}`,
             POST({ sortValues: sortData, filterValues: filterValues })
