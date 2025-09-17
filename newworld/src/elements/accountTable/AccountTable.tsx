@@ -145,7 +145,8 @@ export default function AccountTable() {
                     accountData.map((item, index) =>
                         <TableRow index={index} onViewClick={viewClick} viewText="Edit"> 
                             {columnData != null && columnData.map((column: ColumnData) => {
-                                return <td>{item[column.name as keyof typeof item]}</td>
+                                if (column.active)
+                                    return <td>{item[column.name as keyof typeof item]}</td>
                             })}
                         </TableRow>
                     )

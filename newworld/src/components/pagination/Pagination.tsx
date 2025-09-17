@@ -20,7 +20,7 @@ export default function Pagination({ data, updatePage }: { data: pagination, upd
 
         components.push(<span key={data.pageId - 1} className={"ms-3 join-item btn"} onClick={() => updatePage(data.pageId - 1)}><FaChevronLeft className="inline" /></span>);
 
-        components.push(<span key={data.pageId} className={"join-item btn " + (data.pageId == data.pageId ? "btn-primary" : "")}>{data.pageId + 1}</span>);
+        //components.push(<span key={data.pageId} className={"join-item btn " + (data.pageId == data.pageId ? "btn-primary" : "")}>{data.pageId + 1}</span>);
 
         components.push(<span key={data.pageId + 1} className={"me-3 join-item btn"} onClick={() => updatePage(data.pageId + 1)}><FaChevronRight className="inline" /></span>);
 
