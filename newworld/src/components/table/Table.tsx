@@ -38,10 +38,12 @@ export default function Table<T>({ children, columnData, onSelect, tableData, on
         return columnData != null && columnData.map((column: ColumnData) => {
             if (column.sortable && setSortData !== undefined && sortData != undefined) {
                 let classList: string = "sortable";
+                let titleText = "Click to sort by this column";
                 if (sortData.fieldName == column.name as keyof T) {
                     classList += sortData.sortOrder == "ascending" ? " sortDown" : " sortUp"
+                    titleText = `Click to sort ${sortData.sortOrder == "ascending" ? "decending" : "ascending"}`;
                 }
-                return column.active && <td className={classList} key={column.name}><span title="Click to sort" onClick={() => internalTestSorter!(column.name as keyof T)}>{column.text}</span></td>
+                return column.active && <td className={classList} key={column.name}><span title={titleText} onClick={() => internalTestSorter!(column.name as keyof T)}>{column.text}</span></td>
             }
             else {
                 return column.active && <td key={column.name}>{column.text}</td>

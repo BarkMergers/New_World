@@ -8,12 +8,8 @@ export default function TableFilter({ onEditColumn, filterData, applyFilter }: {
         <div className="card card-border bg-base-200 text-base-content my-1">
             <div className="card-body flex-row px-1 py-1">
 
-
-
                 {
                     Object.entries(filterData).map(([key, value]) => (
-
-
                         Array.isArray(value) ?
 
                                 value.length == 0 ? <select key={key} className="select filter-select h-8"><option>Loading...</option></select> :
@@ -25,12 +21,8 @@ export default function TableFilter({ onEditColumn, filterData, applyFilter }: {
                             :
 
                             <input type="search" key={key} placeholder={`Filter ${key}...`} className="input" onChange={(e: React.ChangeEvent<HTMLInputElement>) => applyFilter(e.target.value, key)}></input>
-
-
                     ))
                 }
-
-
 
                 {onEditColumn != undefined &&
                     <span className="flex-grow text-right">

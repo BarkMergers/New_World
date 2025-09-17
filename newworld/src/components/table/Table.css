@@ -20,14 +20,14 @@ td.sortable > span::before {
 
 
 td.sortDown > span::before {
-    content: "↓";
+    content: "↑";
     margin-right: 4px;
     font-weight: bold;
     opacity: 1;
 }
 
 td.sortUp > span::before {
-    content: "↑";
+    content: "↓";
     margin-right: 4px;
     opacity: 1;
     font-weight: bold;
