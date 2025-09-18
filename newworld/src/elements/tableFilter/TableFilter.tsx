@@ -1,5 +1,4 @@
 ﻿import type { ReactNode } from 'react';
-import { useState } from 'react';
 import { FaColumns } from 'react-icons/fa';
 import type { FilterDefinition } from '../../models/FilterDefinition';
 import MultilistFilter from './customFilters/multilistFilter';
