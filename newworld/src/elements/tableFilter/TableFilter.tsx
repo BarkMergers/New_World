@@ -1,36 +1,101 @@
-﻿import { FaColumns } from 'react-icons/fa';
+﻿import type { ReactNode } from 'react';
+import { FaColumns } from 'react-icons/fa';
 
 
 
 export default function TableFilter({ onEditColumn, filterData, applyFilter }: { onEditColumn?: () => void, filterData: object, applyFilter: (value1: string, value2: string) => void }) {
-    return (
 
+
+    const createFilter = (key: string, value: object): ReactNode => {
+
+
+
+        if (value.type == "list") {
+            return (
+                <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8">
+                    <option value="">Filter {key}...</option>
+                    <optgroup label="Options">{value.data != null && value.data.map((i: string) => <option key={i}>{i}</option>)} </optgroup>
+                </select>
+            )
+        }
+
+
+    }
+
+
+
+
+    return (
         <div className="card card-border bg-base-200 text-base-content my-1">
             <div className="card-body flex-row px-1 py-1">
 
+
+                {Object.entries(filterData).map(([key, value]) => (
+
+                     value.length == 0 ? <select key={key} className="select filter-select h-8"><option>Loading...</option></select> :
+                         <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8">
+                             <option value="">Filter {key}...</option>
+                             <optgroup label="Options">{value != null && value.map((i: string) => <option key={i}>{i}</option>)} </optgroup>
+                         </select>
+
+
+
+                    //<>
+                    //    //{ createFilter(key, value) }
+                    //</>
+                ))}
+
+
                 {
-                    Object.entries(filterData).map(([key, value]) => (
-                        Array.isArray(value) ?
-
-                                value.length == 0 ? <select key={key} className="select filter-select h-8"><option>Loading...</option></select> :
-                                <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8">
-                                    <option value="">Filter {key}...</option>
-                                    <optgroup label="Options">{value != null && value.map((i: string) => <option key={i}>{i}</option>)} </optgroup> 
-                                </select>
-
-                            :
-
-                            <input type="search" key={key} placeholder={`Filter ${key}...`} className="input" onChange={(e: React.ChangeEvent<HTMLInputElement>) => applyFilter(e.target.value, key)}></input>
-                    ))
-                }
-
-                {onEditColumn != undefined &&
+                    onEditColumn != undefined &&
                     <span className="flex-grow text-right">
                         <button className="btn btn-info mx-1 h-8" onClick={onEditColumn}><FaColumns className="inline" /></button>
                     </span>
                 }
 
+
             </div>
         </div>
     );
 }
+
+
+
+
+
+
+
+//{
+//    Object.entries(filterData).map(([key, value]) => {
+
+//        createFilter(key, value)
+//    };
+
+//}
+
+
+//Array.isArray(value) ?
+
+//    value.length == 0 ? <select key={key} className="select filter-select h-8"><option>Loading...</option></select> :
+//        <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8">
+//            <option value="">Filter {key}...</option>
+//            <optgroup label="Options">{value != null && value.map((i: string) => <option key={i}>{i}</option>)} </optgroup>
+//        </select>
+
+//    :
+//    value == "custom" ?
+
+
+//        <div className="dropdown">
+//            <label className="btn btn-accent h-8 align-top" tabIndex={0}>
+//                <span>Filter {key}</span>
+//            </label>
+//            <ul tabIndex={0} style={{ "zIndex": 100000 }} className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow">
+//                <li><a onClick={() => { document.activeElement?.blur(); navigate('/plain') }}>User Details</a></li>
+//                <li><a onClick={() => { document.activeElement?.blur(); handleLogout() }}>Log Out</a></li>
+//            </ul>
+//        </div>
+
+//        :
+//        <input type="search" key={key} placeholder={`Filter ${key}...`} className="input" onChange={(e: React.ChangeEvent<HTMLInputElement>) => applyFilter(e.target.value, key)}></input>
+//                    ))

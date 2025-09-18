@@ -11,6 +11,17 @@ export default function TitleBar({ accounts, title = "NewWorld", handleLogout }:
         document.body.setAttribute("data-theme", e.target.value);
     }
 
+
+    const doBlur = () => {
+
+        const el = document.activeElement;
+        if (el instanceof HTMLElement) {
+            el.blur();
+        }
+    }
+
+
+
     const navigate = useNavigate()
 
     return (
@@ -51,8 +62,8 @@ export default function TitleBar({ accounts, title = "NewWorld", handleLogout }:
                             <Avatar size={2.5} title={accounts.length == 0 ? null : accounts[0].username}></Avatar>
                         </label>
                         <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow">
-                            <li><a onClick={() => { document.activeElement?.blur(); navigate('/plain') }}>User Details</a></li>
-                            <li><a onClick={() => { document.activeElement?.blur(); handleLogout() }}>Log Out</a></li>
+                            <li><a onClick={() => { doBlur(); navigate('/plain') }}>User Details</a></li>
+                            <li><a onClick={() => { doBlur(); handleLogout() }}>Log Out</a></li>
                         </ul>
                     </div>
                 </span>
