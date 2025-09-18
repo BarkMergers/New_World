@@ -10,6 +10,8 @@ import TableFilter from '../tableFilter/TableFilter';
 import type { SortData } from '../../models/SortData';
 import type { Account } from '../../models/Account';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+
 
 
 type Pagination = {
@@ -28,6 +30,7 @@ type AccountWrapper = {
 
 export default function AccountTable() {
 
+    const navigate = useNavigate();
     const pageSize = 12;
     const [pageIndex, setPageIndex] = useState(0);
 
@@ -86,7 +89,7 @@ export default function AccountTable() {
 
     // What happens when the View button is clicked
     const viewClick = (index: number) => {
-        alert(index);
+        navigate(`/editaccount/${accountData[index].recordId}`);
     }
 
     // Handle column editor

@@ -16,6 +16,7 @@ const Dashboard = lazy(() => import('./screens/home/dashboard/Dashboard'));
 const Plain = lazy(() => import('./screens/home/plain/Plain'));
 const CustomerDetails = lazy(() => import('./screens/customer/customerDetails/CustomerDetails'));
 const Customer = lazy(() => import('./screens/customer/customer/Customer'));
+const EditAccount = lazy(() => import('./screens/account/EditAccount'));
 const Logout = lazy(() => import('./helpers/logout/Logout'));
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
 
                 <div className="flex h-screen flex-grow flex-col p-4">
 
-                    <TitleBar accounts={accounts}></TitleBar>
+                    <TitleBar accounts={accounts} handleLogout={() => HandleLogout(instance)}></TitleBar>
 
                     <Routes>
                         <Route path="/" element={<Dashboard />}></Route>
@@ -49,6 +50,7 @@ function App() {
                         <Route path="/customer/:id" element={<CustomerDetails />}></Route>
                         <Route path="/plain" element={<Plain accounts={accounts} />}></Route>
                         <Route path="/account" element={<Account />}></Route>
+                        <Route path="/editaccount/:id" element={<EditAccount />}></Route>
                         <Route path="/asset" element={<Asset />}></Route>
                         <Route path="/logout" element={<Logout />}></Route>
                     </Routes>

@@ -39,12 +39,12 @@ export default function CustomerTable() {
 
 
     // Add sorting
-    const [sortData, setSortData] = useState<SortData<Customer>>({ fieldName: "vehicle", sortOrder: "ascending" });
+    const [sortData, setSortData] = useState<SortData<Customer>>({ fieldName: "id", sortOrder: "ascending" });
 
 
 
     // When filter is updated, reload the data
-    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "" });
+    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "", test: "" });
     const applyFilter = (controlValue: string, name: string) => {
         if (name.endsWith("List"))
             name = name.substring(0, name.length - 4);
@@ -85,13 +85,14 @@ export default function CustomerTable() {
 
 
     // Load filter options from server
-    const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ increasedate: [], power: [], vehicle: [] });
+    const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ increasedate: [], power: [], vehicle: [], test: "custom" });
     useQuery({
         queryKey: ["customerfilter"],
         queryFn: () => getCustomerFilter()
     });
     const getCustomerFilter = async () => {
         const data = await SafeFetchJson(`api/GetCustomerFilter`, GET());
+        data.test = "custom"
         setFilterOptions(data);
         return data;
     }
@@ -101,7 +102,7 @@ export default function CustomerTable() {
     // What happens when the View button is clicked
     const viewClick = (index: number) => {
         globalData.ShowConfirmation("Are you sure you want to edit this record?", "Customer", "question", () => {
-            navigate(`/customer/${customerData[index].id}`)
+            navigate(`/customer/${customerData[index].id}`);
         })
     }
 

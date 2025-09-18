@@ -1,6 +1,6 @@
 import EditCustomerDetails from "../../../elements/editCustomerDetails/EditCustomerDetails";
 
-import { useParams } from "react-router-dom";  // Link
+import { useParams } from "react-router-dom";
 
 export default function CustomerDetails() {
 

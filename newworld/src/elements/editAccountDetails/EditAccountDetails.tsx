@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-export default function EditAccountDetails({ id }: {id : string | undefined }) {
+export default function EditCustomerDetails({ id }: {id : string | undefined }) {
 
     // Access global functions
     const globalData = useContext(UserContext);
@@ -66,7 +66,7 @@ export default function EditAccountDetails({ id }: {id : string | undefined }) {
             <form onSubmit={handleSubmit} className="mx-auto">
                 <fieldset className="fieldset bg-base-200 border-base-300 rounded-box m-auto w-xl p-4">
          
-                    <h1>Customer Details</h1>
+                    <h1>Account Details: { id }</h1>
          
                     <div>
                         <Label title="Vehicle">{data?.vehicle || ""}</Label>

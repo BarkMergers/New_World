@@ -18,7 +18,7 @@ export const GET = function () {
     }
 }
 
-export const SafeFetchJson = async function (url: string, data: object, globalData: GlobalData | undefined) {
+export const SafeFetchJson = async function (url: string, data: object, globalData?: GlobalData | undefined) {
     globalData?.SetSpinnerVisible(true);
     const response = await SafeFetch(url, data);
     globalData?.SetSpinnerVisible(false);

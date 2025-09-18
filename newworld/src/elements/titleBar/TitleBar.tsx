@@ -5,7 +5,7 @@ import { GetSubdomain } from '../../helpers/signin';
 import type { AccountInfo } from '@azure/msal-browser';
 import { useNavigate } from 'react-router-dom';
 
-export default function TitleBar({ accounts, title = "NewWorld" }: { title?: string, accounts: AccountInfo[] }) {
+export default function TitleBar({ accounts, title = "NewWorld", handleLogout }: { title?: string, accounts: AccountInfo[], handleLogout: () => void }) {
 
     const setTheme = (e: React.ChangeEvent<HTMLSelectElement>) => {
         document.body.setAttribute("data-theme", e.target.value);
@@ -45,9 +45,18 @@ export default function TitleBar({ accounts, title = "NewWorld" }: { title?: str
                     </div>
                 </span>
 
-                <span onClick={() => navigate('/plain')} className="cursor-pointer">
-                    <Avatar size={2.5} title={accounts.length == 0 ? null : accounts[0].username}></Avatar>
+                <span className="cursor-pointer">
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="m-1">
+                            <Avatar size={2.5} title={accounts.length == 0 ? null : accounts[0].username}></Avatar>
+                        </label>
+                        <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow">
+                            <li><a onClick={() => { document.activeElement?.blur(); navigate('/plain') }}>User Details</a></li>
+                            <li><a onClick={() => { document.activeElement?.blur(); handleLogout() }}>Log Out</a></li>
+                        </ul>
+                    </div>
                 </span>
+
 
             </div>
         </div>
