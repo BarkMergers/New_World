@@ -1,4 +1,4 @@
-﻿import type { ReactNode } from 'react';
+﻿//import type { ReactNode } from 'react';
 import { FaColumns } from 'react-icons/fa';
 
 
@@ -6,21 +6,21 @@ import { FaColumns } from 'react-icons/fa';
 export default function TableFilter({ onEditColumn, filterData, applyFilter }: { onEditColumn?: () => void, filterData: object, applyFilter: (value1: string, value2: string) => void }) {
 
 
-    const createFilter = (key: string, value: object): ReactNode => {
+    //const createFilter = (key: string, value: object): ReactNode => {
 
 
 
-        if (value.type == "list") {
-            return (
-                <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8">
-                    <option value="">Filter {key}...</option>
-                    <optgroup label="Options">{value.data != null && value.data.map((i: string) => <option key={i}>{i}</option>)} </optgroup>
-                </select>
-            )
-        }
+    //    if (value.type == "list") {
+    //        return (
+    //            <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8">
+    //                <option value="">Filter {key}...</option>
+    //                <optgroup label="Options">{value.data != null && value.data.map((i: string) => <option key={i}>{i}</option>)} </optgroup>
+    //            </select>
+    //        )
+    //    }
 
 
-    }
+    //}
 
 
 
