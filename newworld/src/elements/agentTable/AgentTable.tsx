@@ -101,7 +101,12 @@ export default function AgentTable() {
 
     const reloadData = () => {
         let output = Array.from(rawData);
-        output = filterValues.color == "" ? output : output.filter(agent => agent.color == filterValues.color);
+
+        if (filterValues.color != "" && filterValues.color != "[]") {
+            const list = JSON.parse(filterValues.color);
+            output = output.filter(agent => list.includes(agent.color));
+        }
+
         output = filterValues.job == "" ? output : output.filter(agent => agent.job == filterValues.job);
         output = filterValues.name == "" ? output : output.filter(agent => agent.name == filterValues.name);
 
@@ -111,14 +116,10 @@ export default function AgentTable() {
             const key = currentSort.fieldName;
             const valA = currentSort.sortOrder == "ascending" ? a[key] : b[key];
             const valB = currentSort.sortOrder == "ascending" ? b[key] : a[key];
-
-            // If it's a string, use localeCompare
-            if (typeof valA === 'string' && typeof valB === 'string') {
+            if (typeof valA === 'string' && typeof valB === 'string') 
                 return valA.localeCompare(valB);
-            }
-
-            // If it's a number/boolean, convert to number and subtract
-            return Number(valA) - Number(valB);
+            else
+                return Number(valA) - Number(valB);
         })
 
         setData(output);
