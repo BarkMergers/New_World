@@ -1,6 +1,7 @@
+import type { FilterDefinition } from "./FilterDefinition";
+
 export type CustomerFilterOptions = {
-    vehicle: string[];
-    power: string[];
-    increasedate: string[];
-    test: string;
+    status: FilterDefinition;
+    fineOperator: FilterDefinition;
+    issuer: FilterDefinition;
 }

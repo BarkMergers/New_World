@@ -80,7 +80,7 @@ export default function AccountTable() {
 
 
     // Load filter options from server
-    const [filterOptions] = useState<AssetFilterOptions>({ assetName: "", assetTypeId: "", registrationNumber: "" });
+    const [filterOptions] = useState<AssetFilterOptions>({ assetName: { type: "text" }, assetTypeId: { type: "number" }, registrationNumber: { type: "text" }});
 
 
 

@@ -75,7 +75,7 @@ export default function AccountTable() {
 
 
     // Load filter options from server
-    const [filterOptions, setFilterOptions] = useState<AccountFilterOptions>({ accountName: [], registrationNumber: [], vatRegNo: [] });
+    const [filterOptions, setFilterOptions] = useState<AccountFilterOptions>({ accountName: { type: "" }, registrationNumber: { type: "" }, vatRegNo: { type: "" } });
     useQuery({
         queryKey: ["customerfilter"],
         queryFn: () => getCustomerFilter()

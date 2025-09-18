@@ -1,5 +1,7 @@
+import type { FilterDefinition } from "./FilterDefinition";
+
 export type AccountFilterOptions = {
-    accountName: string[];
-    registrationNumber: string[];
-    vatRegNo: string[];
+    accountName: FilterDefinition;
+    registrationNumber: FilterDefinition;
+    vatRegNo: FilterDefinition;
 }

@@ -1,5 +1,7 @@
+import type { FilterDefinition } from "./FilterDefinition";
+
 export type AssetFilterOptions = {
-    assetName: string;
-    assetTypeId: string;
-    registrationNumber: string;
+    assetName: FilterDefinition;
+    assetTypeId: FilterDefinition;
+    registrationNumber: FilterDefinition;
 }

@@ -1,5 +1,7 @@
+import type { FilterDefinition } from "./FilterDefinition";
+
 export type AgentFilterOptions = {
-    name: string[];
-    job: string[];
-    color: string[];
+    name: FilterDefinition;
+    job: FilterDefinition;
+    color: FilterDefinition;
 }

@@ -44,7 +44,7 @@ export default function CustomerTable() {
 
 
     // When filter is updated, reload the data
-    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "", test: "" });
+    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "" });
     const applyFilter = (controlValue: string, name: string) => {
         if (name.endsWith("List"))
             name = name.substring(0, name.length - 4);
@@ -85,14 +85,13 @@ export default function CustomerTable() {
 
 
     // Load filter options from server
-    const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ increasedate: [], power: [], vehicle: [], test: "custom" });
+    const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ status: { type: "" }, fineOperator: { type: "" }, issuer: { type: "" } });
     useQuery({
         queryKey: ["customerfilter"],
         queryFn: () => getCustomerFilter()
     });
     const getCustomerFilter = async () => {
         const data = await SafeFetchJson(`api/GetCustomerFilter`, GET());
-        data.test = "custom"
         setFilterOptions(data);
         return data;
     }

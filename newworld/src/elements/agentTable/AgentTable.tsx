@@ -85,7 +85,7 @@ export default function AgentTable() {
 
 
     // Setup filter data
-    const [filterOptions, setFilterOptions] = useState<AgentFilterOptions>({color: [], name: [], job: [] });
+    const [filterOptions, setFilterOptions] = useState<AgentFilterOptions>({ color: { type: "" }, name: { type: "" }, job: { type: "" } });
     useQuery({
         queryKey: ["filter"],
         queryFn: () => getCustomerFilter()
