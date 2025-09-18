@@ -1,5 +1,5 @@
 ﻿import { Table, TableRow, Pagination } from '../../components'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { POST, SafeFetchJson } from '../../helpers/fetch';
 import type { AssetFilterOptions } from '../../models/AssetFilterOptions';
@@ -10,6 +10,8 @@ import TableFilter from '../tableFilter/TableFilter';
 import type { SortData } from '../../models/SortData';
 import type { Asset } from '../../models/Asset';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { UserContext } from '../../helpers/globalData';
+import type { GlobalData } from '../../models/GlobalData';
 
 
 
@@ -29,17 +31,13 @@ type AssetWrapper = {
 
 export default function AccountTable() {
 
-    //const navigate = useNavigate()
-
+    const globalData: GlobalData = useContext(UserContext);
     const pageSize = 12;
     const [pageIndex, setPageIndex] = useState(0);
-    //const [pagination, setPagination] = useState<pagination>({ pageId: 0, totalPages: 0});
 
 
     // Add sorting
     const [sortData, setSortData] = useState<SortData<Asset>>({ fieldName: "assetName", sortOrder: "ascending" });
-
-
 
 
     // When filter is updated, reload the data
@@ -51,7 +49,7 @@ export default function AccountTable() {
     }
 
 
-    // This should be a pure fetcher:
+    // TanStack loader
     const loadAssetData = async (
         pageIndex: number,
         pageSize: number,
@@ -60,47 +58,30 @@ export default function AccountTable() {
     ): Promise<AssetWrapper> => {
         return SafeFetchJson(
             `api/GetAsset/${pageIndex}/${pageSize}`,
-            POST({ sortValues: sortData, filterValues: filterValues })
+            POST({ sortValues: sortData, filterValues: filterValues }),
+            globalData
         );
     };
-
     const { data: assetWrapper } = useQuery({
         queryKey: ["assets", pageIndex, sortData, filterValues],
         queryFn: () => loadAssetData(pageIndex, pageSize, sortData, filterValues),
         staleTime: 5 * 60 * 1000, // cache for 5 minutes
     });
 
+
     // Use React Query data directly
     const assetData = assetWrapper?.data ?? [];
     const pagination = assetWrapper?.pagination;
-
-
-
-
 
 
     // Load filter options from server
     const [filterOptions] = useState<AssetFilterOptions>({ assetName: { type: "text" }, assetTypeId: { type: "number" }, registrationNumber: { type: "text" }});
 
 
-
-
-
-
-
-
-
-
     // What happens when the View button is clicked
     const viewClick = (index: number) => {
         alert(index);
-        //globalData.ShowConfirmation("Are you sure you want to edit this record?", "Customer", "question", () => {
-        //    navigate(`/customer/${customerData[index].recordId}`)
-        //})
     }
-
-
-
 
 
     // Handle column editor
@@ -126,15 +107,6 @@ export default function AccountTable() {
     useEffect(() => {
         SaveColumnData("liststructure_asset", columnData);
     }, [columnData])
-
-
-
-
-
-
-
-
-
 
 
     return (

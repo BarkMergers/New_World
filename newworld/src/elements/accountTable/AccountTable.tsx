@@ -1,5 +1,5 @@
 ﻿import { Table, TableRow, Pagination } from '../../components'
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { GET, POST, SafeFetchJson } from '../../helpers/fetch';
 import type { AccountFilterOptions } from '../../models/AccountFilterOptions';
@@ -11,6 +11,8 @@ import type { SortData } from '../../models/SortData';
 import type { Account } from '../../models/Account';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../helpers/globalData';
+import type { GlobalData } from '../../models/GlobalData';
 
 
 
@@ -33,9 +35,12 @@ export default function AccountTable() {
     const navigate = useNavigate();
     const pageSize = 12;
     const [pageIndex, setPageIndex] = useState(0);
+    const globalData: GlobalData = useContext(UserContext);
+
 
     // Add sorting
     const [sortData, setSortData] = useState<SortData<Account>>({ fieldName: "recordId", sortOrder: "ascending" });
+
 
     // When filter is updated, reload the data
     const [filterValues, setFilterValues] = useState<AccountFilterValues>({ accountName: "", registrationNumber: "", vatRegNo: "" });
@@ -45,6 +50,7 @@ export default function AccountTable() {
         setFilterValues({ ...filterValues, [name]: controlValue });
     }
 
+
     // Get the data from the API in a tanstack friendly way
     const loadAssetData = async (
         pageIndex: number,
@@ -52,15 +58,12 @@ export default function AccountTable() {
         sortData: SortData<Account>,
         filterValues: AccountFilterValues
     ): Promise<AccountWrapper> => {
-
-        
-
         return SafeFetchJson(
             `api/GetAccount/${pageIndex}/${pageSize}`,
-            POST({ sortValues: sortData, filterValues: filterValues })
+            POST({ sortValues: sortData, filterValues: filterValues }),
+            globalData
         );
     };
-
     const { data: assetWrapper } = useQuery({
         queryKey: ["assets", pageIndex, sortData, filterValues],
         queryFn: () => loadAssetData(pageIndex, pageSize, sortData, filterValues),
@@ -92,6 +95,7 @@ export default function AccountTable() {
         navigate(`/editaccount/${accountData[index].recordId}`);
     }
 
+
     // Handle column editor
     useEffect(() => {
         setColumnData(LoadColumnData("liststructure_account", resetList));
@@ -114,6 +118,7 @@ export default function AccountTable() {
     useEffect(() => {
         SaveColumnData("liststructure_account", columnData);
     }, [columnData])
+
 
     return (
         <>

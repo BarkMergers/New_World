@@ -37,10 +37,8 @@ export default function CustomerTable() {
     const globalData: GlobalData = useContext(UserContext);
 
 
-
     // Add sorting
     const [sortData, setSortData] = useState<SortData<Customer>>({ fieldName: "id", sortOrder: "ascending" });
-
 
 
     // When filter is updated, reload the data
@@ -52,8 +50,7 @@ export default function CustomerTable() {
     }
 
 
-
-
+    // TanStack loader
     const loadAssetData = async (
         pageIndex: number,
         pageSize: number,
@@ -66,7 +63,6 @@ export default function CustomerTable() {
             globalData
         );
     };
-
     const { data: assetWrapper } = useQuery({
         queryKey: ["assets", pageIndex, sortData, filterValues],
         queryFn: () => loadAssetData(pageIndex, pageSize, sortData, filterValues),
@@ -74,14 +70,9 @@ export default function CustomerTable() {
     });
 
 
-
-
     // Use React Query data directly
     const customerData = assetWrapper?.data ?? [];
     const pagination = assetWrapper?.pagination;
-
-
-
 
 
     // Load filter options from server
@@ -97,16 +88,12 @@ export default function CustomerTable() {
     }
 
 
-
     // What happens when the View button is clicked
     const viewClick = (index: number) => {
         globalData.ShowConfirmation("Are you sure you want to edit this record?", "Customer", "question", () => {
             navigate(`/customer/${customerData[index].id}`);
         })
     }
-
-
-
 
 
     // Handle column editor
@@ -130,13 +117,6 @@ export default function CustomerTable() {
     useEffect(() => {
         SaveColumnData("liststructure_customer", columnData);
     }, [columnData])
-
-
-
-
-
-
-
 
 
     return (
