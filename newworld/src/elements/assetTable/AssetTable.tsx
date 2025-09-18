@@ -75,7 +75,7 @@ export default function AccountTable() {
 
 
     // Load filter options from server
-    const [filterOptions] = useState<AssetFilterOptions>({ assetName: { type: "text" }, assetTypeId: { type: "number" }, registrationNumber: { type: "text" }});
+    const [filterOptions] = useState<AssetFilterOptions>({ assetName: { type: "text", description: "Asset Name" }, assetTypeId: { type: "intMultilist", intData: [1,2], description: "Asset Type" }, registrationNumber: { type: "text", description: "Reg Number" }});
 
 
     // What happens when the View button is clicked
