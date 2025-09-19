@@ -3,6 +3,7 @@ import { FaColumns } from 'react-icons/fa';
 import type { FilterDefinition } from '../../models/FilterDefinition';
 import MultilistFilter from './customFilters/multilistFilter';
 import IntMultilistFilter from './customFilters/intMultilistFilter';
+import DateFilter from './customFilters/dateFilter';
 
 
 
@@ -10,10 +11,6 @@ import IntMultilistFilter from './customFilters/intMultilistFilter';
 //{/*<li><a onClick={() => { document.activeElement?.blur(); handleLogout() }}>Log Out</a></li>*/ }
 
 export default function TableFilter({ onEditColumn, filterData, applyFilter }: { onEditColumn?: () => void, filterData: object, applyFilter: (value1: string, value2: string) => void }) {
-
-
-
-
     const createFilter = (key: string, value: FilterDefinition): ReactNode => {
 
         switch (value.type) {
@@ -53,6 +50,8 @@ export default function TableFilter({ onEditColumn, filterData, applyFilter }: {
                 return (
                     <input type="search" key={key} placeholder={`Filter ${value.description}...`} className="input h-8" onChange={(e: React.ChangeEvent<HTMLInputElement>) => applyFilter(e.target.value, key)}></input>
                 )
+            case "datetime":
+                return <DateFilter value={value} applyFilter={applyFilter} filterKey={key}></DateFilter>
 
             default:
                 return (

@@ -30,7 +30,6 @@ type CustomerWrapper = {
 
 
 export default function CustomerTable() {
-
     const navigate = useNavigate();
     const pageSize = 3;
     const [pageIndex, setPageIndex] = useState(0);
@@ -42,7 +41,7 @@ export default function CustomerTable() {
 
 
     // When filter is updated, reload the data
-    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "" });
+    const [filterValues, setFilterValues] = useState<CustomerFilterValues>({ issuer: "", status: "", fineOperator: "", dateTime: ""});
     const applyFilter = (controlValue: string, name: string) => {
         if (name.endsWith("List"))
             name = name.substring(0, name.length - 4);
@@ -76,7 +75,7 @@ export default function CustomerTable() {
 
 
     // Load filter options from server
-    const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ status: { type: "" }, fineOperator: { type: "" }, issuer: { type: "" } });
+    const [filterOptions, setFilterOptions] = useState<CustomerFilterOptions>({ status: { type: "" }, fineOperator: { type: "" }, issuer: { type: "" }, dateTime: { type: "" }});
     useQuery({
         queryKey: ["customerfilter"],
         queryFn: () => getCustomerFilter()
@@ -151,4 +150,3 @@ export default function CustomerTable() {
         </>
     )
 }
-
