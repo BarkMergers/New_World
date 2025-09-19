@@ -29,7 +29,6 @@ export const SafeFetchJson = async function (url: string, data: object, globalDa
 }
 
 export const SafeFetch = async function (url: string, data: object) {
-
     let response;
     let errorText;
     try {

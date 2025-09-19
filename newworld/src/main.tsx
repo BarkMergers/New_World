@@ -8,7 +8,7 @@ import { loginRequest } from './helpers/authConfig';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SafeFetch, POST } from './helpers/fetch';
 
-const queryClient = new QueryClient;
+export const queryClient = new QueryClient;
 import { msalInstance } from "./helpers/msal";
 
 async function bootstrap() {

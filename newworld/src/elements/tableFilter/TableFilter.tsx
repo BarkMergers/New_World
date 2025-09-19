@@ -1,18 +1,12 @@
 ﻿import type { ReactNode } from 'react';
-import { FaColumns } from 'react-icons/fa';
+import { FaColumns, FaRecycle } from 'react-icons/fa';
 import type { FilterDefinition } from '../../models/FilterDefinition';
 import MultilistFilter from './customFilters/multilistFilter';
 import IntMultilistFilter from './customFilters/intMultilistFilter';
 
 
-
-//{/*                        <li><a onClick={() => { document.activeElement?.blur(); navigate('/plain') }}>User Details</a></li>*/ }
-//{/*<li><a onClick={() => { document.activeElement?.blur(); handleLogout() }}>Log Out</a></li>*/ }
-
-export default function TableFilter({ onEditColumn, filterData, applyFilter }: { onEditColumn?: () => void, filterData: object, applyFilter: (value1: string, value2: string) => void }) {
-
-
-
+export default function TableFilter({ onEditColumn, filterData, applyFilter, onRefreshData }:
+    { onEditColumn?: () => void, onRefreshData?: () => void, filterData: object, applyFilter: (value1: string, value2: string) => void }) {
 
     const createFilter = (key: string, value: FilterDefinition): ReactNode => {
 
@@ -76,56 +70,20 @@ export default function TableFilter({ onEditColumn, filterData, applyFilter }: {
                 ))}
 
 
+
+                <span className="flex-grow text-right">
                 {
-                    onEditColumn != undefined &&
-                    <span className="flex-grow text-right">
-                        <button className="btn btn-info mx-1 h-8" onClick={onEditColumn}><FaColumns className="inline" /></button>
-                    </span>
+                    onRefreshData != undefined &&
+                        <button title="Reset data" className="btn btn-info mx-1 h-8" onClick={onRefreshData}><FaRecycle /></button>
                 }
 
+                {
+                    onEditColumn != undefined &&
+                        <button title="Manage columns" className="btn btn-info mx-1 h-8" onClick={onEditColumn}><FaColumns /></button>
+                }
+                </span>
 
             </div>
         </div>
     );
 }
-
-
-
-
-
-
-
-//{
-//    Object.entries(filterData).map(([key, value]) => {
-
-//        createFilter(key, value)
-//    };
-
-//}
-
-
-//Array.isArray(value) ?
-
-//    value.length == 0 ? <select key={key} className="select filter-select h-8"><option>Loading...</option></select> :
-//        <select key={key} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => applyFilter(e.target.value, key)} className="select filter-select h-8">
-//            <option value="">Filter {key}...</option>
-//            <optgroup label="Options">{value != null && value.map((i: string) => <option key={i}>{i}</option>)} </optgroup>
-//        </select>
-
-//    :
-//    value == "custom" ?
-
-
-//        <div className="dropdown">
-//            <label className="btn btn-accent h-8 align-top" tabIndex={0}>
-//                <span>Filter {key}</span>
-//            </label>
-//            <ul tabIndex={0} style={{ "zIndex": 100000 }} className="dropdown-content menu bg-base-100 rounded-box w-52 p-2 shadow">
-//                <li><a onClick={() => { document.activeElement?.blur(); navigate('/plain') }}>User Details</a></li>
-//                <li><a onClick={() => { document.activeElement?.blur(); handleLogout() }}>Log Out</a></li>
-//            </ul>
-//        </div>
-
-//        :
-//        <input type="search" key={key} placeholder={`Filter ${key}...`} className="input" onChange={(e: React.ChangeEvent<HTMLInputElement>) => applyFilter(e.target.value, key)}></input>
-//                    ))
