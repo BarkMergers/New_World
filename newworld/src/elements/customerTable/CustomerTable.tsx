@@ -78,16 +78,10 @@ export default function CustomerTable() {
         staleTime: 5 * 60 * 1000
     });
 
-
+    // Function to clear TanStack cache named 'customers' 
     const onRefreshData = () => {
         queryClient.removeQueries({ queryKey: ['customers'] })
     };
-
-
-
-
-
-
 
     // Use React Query data directly
     const customerData = assetWrapper?.data ?? [];
