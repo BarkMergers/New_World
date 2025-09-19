@@ -6,17 +6,12 @@ import IntMultilistFilter from './customFilters/intMultilistFilter';
 import DateFilter from './customFilters/dateFilter';
 
 
-<<<<<<< HEAD
-
 //{/*                        <li><a onClick={() => { document.activeElement?.blur(); navigate('/plain') }}>User Details</a></li>*/ }
 //{/*<li><a onClick={() => { document.activeElement?.blur(); handleLogout() }}>Log Out</a></li>*/ }
 
-export default function TableFilter({ onEditColumn, filterData, applyFilter }: { onEditColumn?: () => void, filterData: object, applyFilter: (value1: string, value2: string) => void }) {
-=======
 export default function TableFilter({ onEditColumn, filterData, applyFilter, onRefreshData }:
     { onEditColumn?: () => void, onRefreshData?: () => void, filterData: object, applyFilter: (value1: string, value2: string) => void }) {
 
->>>>>>> 49586748ec68a541addfe9b94f193e0844de5369
     const createFilter = (key: string, value: FilterDefinition): ReactNode => {
 
         switch (value.type) {
