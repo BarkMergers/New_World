@@ -48,7 +48,6 @@ export default function AccountTable() {
         setFilterValues({ ...filterValues, [name]: controlValue });
     }
 
-
     // TanStack loader
     const loadAssetData = async (
         pageIndex: number,

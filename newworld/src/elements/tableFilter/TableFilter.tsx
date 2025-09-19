@@ -1,5 +1,5 @@
 ﻿import type { ReactNode } from 'react';
-import { FaColumns } from 'react-icons/fa';
+import { FaColumns, FaRecycle } from 'react-icons/fa';
 import type { FilterDefinition } from '../../models/FilterDefinition';
 import MultilistFilter from './customFilters/multilistFilter';
 import IntMultilistFilter from './customFilters/intMultilistFilter';

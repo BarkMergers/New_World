@@ -1,6 +1,6 @@
 ﻿import { Table, TableRow, Pagination, NumberPlate, LocalDate } from '../../components'
 import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { POST, GET, SafeFetchJson } from '../../helpers/fetch';
 import type { CustomerFilterOptions } from '../../models/CustomerFilterOptions';
 import type { CustomerFilterValues } from '../../models/CustomerFilterValues';
@@ -30,6 +30,10 @@ type CustomerWrapper = {
 
 
 export default function CustomerTable() {
+
+
+    const queryClient = useQueryClient();
+
     const navigate = useNavigate();
     const pageSize = 3;
     const [pageIndex, setPageIndex] = useState(0);
@@ -62,12 +66,21 @@ export default function CustomerTable() {
             globalData
         );
     };
+
+
+    const sortKey = JSON.stringify(sortData);
+    const filterKey = JSON.stringify(filterValues);
+
     const { data: assetWrapper } = useQuery({
-        queryKey: ["assets", pageIndex, sortData, filterValues],
+        queryKey: ["customers", pageIndex, sortKey, filterKey],
         queryFn: () => loadAssetData(pageIndex, pageSize, sortData, filterValues),
         staleTime: 5 * 60 * 1000
     });
 
+    // Function to clear TanStack cache named 'customers' 
+    const onRefreshData = () => {
+        queryClient.removeQueries({ queryKey: ['customers'] })
+    };
 
     // Use React Query data directly
     const customerData = assetWrapper?.data ?? [];
@@ -122,7 +135,7 @@ export default function CustomerTable() {
         <>
             <ColumnEditor columnData={columnData} setColumnData={setColumnData} resetColumnData={resetList}></ColumnEditor>
 
-            <TableFilter applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
+            <TableFilter onRefreshData={onRefreshData} applyFilter={applyFilter} filterData={filterOptions} onEditColumn={OpenColumnEditor}></TableFilter>
 
             <Table<Customer> columnData={columnData} onViewClick={viewClick} setSortData={setSortData} sortData={sortData}>
                 {
